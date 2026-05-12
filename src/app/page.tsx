@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SampleCarousel from '../components/dokdo/SampleCarousel';
 import TeacherGuideModal from '../components/dokdo/TeacherGuideModal';
+import ContactButton from '../components/common/ContactButton';
+import { siteConfig } from '../constants/siteConfig';
 
 export default function HomePage() {
   const [guideOpen, setGuideOpen] = useState(false);
@@ -27,11 +29,21 @@ export default function HomePage() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 22 }}>🎨</span>
-          <span style={{ fontWeight: 700, fontSize: 16, color: 'var(--color-text)' }}>
-            우리반 라이브 갤러리
+          <span
+            className="brand-title"
+            style={{ fontWeight: 700, fontSize: 18, color: 'var(--color-text)' }}
+          >
+            {siteConfig.title}
           </span>
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 8,
+            flexWrap: 'wrap',
+            justifyContent: 'flex-end',
+          }}
+        >
           <button
             type="button"
             className="btn btn-ghost btn-sm"
@@ -39,6 +51,7 @@ export default function HomePage() {
           >
             안내
           </button>
+          <ContactButton />
         </div>
       </nav>
 
@@ -56,16 +69,18 @@ export default function HomePage() {
       }}>
         <div className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           <div>
-            <h1 style={{
-              fontSize: 'clamp(34px, 4vw, 56px)',
-              fontWeight: 800,
-              lineHeight: 1.15,
-              color: 'var(--color-text)',
-              marginBottom: 18,
-              letterSpacing: '-0.01em',
-            }}>
-              우리 반<br />
-              <span style={{ color: 'var(--color-primary)' }}>작품</span>
+            <h1
+              className="hero-title"
+              style={{
+                fontSize: 'clamp(48px, 7vw, 96px)',
+                fontWeight: 700,
+                lineHeight: 1.0,
+                color: 'var(--color-text)',
+                marginBottom: 18,
+              }}
+            >
+              CLASS<br />
+              <span style={{ color: 'var(--color-primary)' }}>GALLERY</span>
             </h1>
             <p style={{
               fontSize: 18,

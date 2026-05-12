@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap');
+
 /* CSS 디자인 토큰 */
 :root {
   --color-bg: #eaf7ff;
@@ -156,4 +158,111 @@ button { cursor: pointer; font-family: inherit; }
 }
 .fade-in {
   animation: fadeIn 0.35s ease both;
+}
+
+/* 브랜드/히어로 제목 폰트 (Fredoka) */
+.brand-title,
+.hero-title {
+  font-family: 'Fredoka', 'Nunito', 'Pretendard', system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* 📱 가로 모드 유도 오버레이 */
+.landscape-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(234, 247, 255, 0.85); /* var(--color-bg) 투명화 */
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.landscape-content {
+  background: var(--color-surface-solid);
+  padding: 40px 30px;
+  border-radius: var(--radius-card);
+  box-shadow: 0 16px 48px rgba(31, 95, 145, 0.2);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 320px;
+  width: 100%;
+}
+
+.device-animation {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.phone-icon {
+  width: 36px;
+  height: 60px;
+  border: 4px solid var(--color-primary);
+  border-radius: 8px;
+  position: relative;
+  animation: rotatePhone 2.5s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.phone-icon::after {
+  content: '';
+  width: 12px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 3px;
+  position: absolute;
+  top: 4px;
+}
+
+.phone-icon::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+}
+
+@keyframes rotatePhone {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(0deg); }
+  45% { transform: rotate(-90deg); }
+  70% { transform: rotate(-90deg); }
+  90% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.landscape-content h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.landscape-content p {
+  font-size: 15px;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
 }

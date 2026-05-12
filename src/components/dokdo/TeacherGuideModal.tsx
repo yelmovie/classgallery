@@ -5,23 +5,6 @@ interface TeacherGuideModalProps {
   onClose: () => void;
 }
 
-const SAFETY_NOTES = [
-  '학생 이름을 입력하지 않습니다.',
-  '학생 얼굴 사진을 업로드하지 않습니다.',
-  '학생이 직접 업로드하지 않습니다.',
-  '선생님이 수업용 학습지만 업로드합니다.',
-  '외부 DB에 저장하지 않습니다.',
-  '수업 후 전체 삭제할 수 있습니다.',
-];
-
-const USAGE_STEPS = [
-  '전시 배경을 고릅니다.',
-  '원하는 활동지를 고릅니다.',
-  '활동지를 학생들에게 나누어 주고 색칠하게 합니다.',
-  '선생님이 완성된 활동지 사진을 찍어 업로드합니다.',
-  '전시 화면에는 색칠한 캐릭터만 배경 위에 나타나요.',
-];
-
 export default function TeacherGuideModal({ open, onClose }: TeacherGuideModalProps) {
   // Esc 키로 닫기
   useEffect(() => {
@@ -76,7 +59,7 @@ export default function TeacherGuideModal({ open, onClose }: TeacherGuideModalPr
           borderBottom: '1px solid var(--color-border)',
         }}>
           <h2 id="teacher-guide-title" style={{ fontSize: 18, fontWeight: 800, color: 'var(--color-text)' }}>
-            📋 교사용 안내
+            📘 안내
           </h2>
           <button
             onClick={onClose}
@@ -90,56 +73,35 @@ export default function TeacherGuideModal({ open, onClose }: TeacherGuideModalPr
           >×</button>
         </div>
 
-        <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <section>
-            <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--color-primary-dark)', marginBottom: 10 }}>
-              교사용 안전 안내
-            </h3>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none' }}>
-              {SAFETY_NOTES.map((note) => (
-                <li
-                  key={note}
-                  style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 10,
-                    fontSize: 14, color: 'var(--color-text)', lineHeight: 1.5,
-                  }}
-                >
-                  <span style={{
-                    flexShrink: 0, width: 18, height: 18, borderRadius: 6,
-                    background: 'var(--color-primary-light)', color: 'var(--color-primary)',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 11, fontWeight: 800, marginTop: 1,
-                  }}>✓</span>
-                  {note}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <h3 style={{ fontSize: 14, fontWeight: 800, color: 'var(--color-primary-dark)', marginBottom: 10 }}>
-              수업 사용 흐름
-            </h3>
-            <ol style={{ display: 'flex', flexDirection: 'column', gap: 8, listStyle: 'none', counterReset: 'step' }}>
-              {USAGE_STEPS.map((step, i) => (
-                <li
-                  key={step}
-                  style={{
-                    display: 'flex', alignItems: 'flex-start', gap: 10,
-                    fontSize: 14, color: 'var(--color-text)', lineHeight: 1.5,
-                  }}
-                >
-                  <span style={{
-                    flexShrink: 0, width: 22, height: 22, borderRadius: '50%',
-                    background: 'var(--color-primary)', color: '#fff',
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 12, fontWeight: 800,
-                  }}>{i + 1}</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </section>
+        <div
+          style={{
+            padding: '20px 24px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 14,
+            fontSize: 14,
+            color: 'var(--color-text)',
+            lineHeight: 1.7,
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            이 사이트는 우리 반 창의적 체험활동 및 학습 결과물을 보기 좋게 정리하고 감상하기 위한 교육용 웹페이지입니다.
+          </p>
+          <p style={{ margin: 0 }}>
+            학생의 이름, 연락처, 주소, 주민등록번호 등 직접적인 개인정보를 수집하지 않습니다.
+          </p>
+          <p style={{ margin: 0 }}>
+            작품과 학습지는 교실 수업 및 교육 활동을 위한 목적으로만 활용됩니다.
+          </p>
+          <p style={{ margin: 0 }}>
+            사이트 이용 중 문의나 개선 의견이 있으면 "문의하기"를 통해 알려 주세요.
+          </p>
+          <p style={{ margin: 0 }}>
+            문의 시 학생 실명, 연락처, 민감정보, 욕설, 비방, 저작권 침해 자료는 포함하지 말아 주세요.
+          </p>
+          <p style={{ margin: 0 }}>
+            본 사이트는 교육 활동 보조용으로 제공되며, 자료 활용 및 게시 내용은 게시 전 관리자가 최종 확인해야 합니다.
+          </p>
         </div>
 
         <div style={{

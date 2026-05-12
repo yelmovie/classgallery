@@ -8,10 +8,12 @@ import HomePage from './app/page';
 import ControlPage from './app/control/page';
 import DisplayPage from './app/display/page';
 import PacksPage from './app/packs/page';
+import LandscapeOverlay from './components/LandscapeOverlay';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GalleryProvider>
+      <LandscapeOverlay />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
