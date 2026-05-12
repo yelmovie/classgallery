@@ -1,0 +1,139 @@
+{
+  "themeId": "multicultural",
+  "version": "2.0.0",
+  "assetVersion": "20260513",
+  "description": "선생님이 학생들이 색칠한 다문화이해교육 학습지를 업로드하면, 전시 화면에는 색칠한 캐릭터만 다문화이해교육 배경 위에 둥둥 떠다니는 우리 반 작품 전시 주제입니다. 활동지 하단의 '서로 달라도 함께 빛나요' 글쓰기 영역은 전시 화면에 절대 표시되지 않습니다.",
+  "backgrounds": {
+    "main": "/assets/themes/multicultural/backgrounds/1.png",
+    "soft": "/assets/themes/multicultural/backgrounds/2.png",
+    "classroom": "/assets/themes/multicultural/backgrounds/1.png",
+    "village": "/assets/themes/multicultural/backgrounds/2.png",
+    "foodTable": "/assets/themes/multicultural/backgrounds/3.png",
+    "playground": "/assets/themes/multicultural/backgrounds/4.png",
+    "worldGarden": "/assets/themes/multicultural/backgrounds/5.png"
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": [
+      "paused",
+      "slow",
+      "normal",
+      "fast"
+    ],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "samples": [
+    {
+      "id": "boy-globe",
+      "group": 1,
+      "name": "지구본을 든 친구",
+      "file": "/assets/themes/multicultural/samples/1.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/1.png"
+    },
+    {
+      "id": "heart-speech-bubble",
+      "group": 2,
+      "name": "하트 말풍선을 든 친구",
+      "file": "/assets/themes/multicultural/samples/2.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/2.png"
+    },
+    {
+      "id": "food-tray",
+      "group": 3,
+      "name": "세계 음식을 든 친구",
+      "file": "/assets/themes/multicultural/samples/3.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/3.png"
+    },
+    {
+      "id": "heart-hands-earth",
+      "group": 4,
+      "name": "지구를 감싼 하트 손",
+      "file": "/assets/themes/multicultural/samples/4.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/4.png"
+    },
+    {
+      "id": "plant-friend",
+      "group": 5,
+      "name": "함께 자라는 친구",
+      "file": "/assets/themes/multicultural/samples/5.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/5.png"
+    }
+  ],
+  "worksheets": [
+    {
+      "id": "globe-friend",
+      "group": 1,
+      "name": "지구본을 든 친구",
+      "file": "/assets/themes/multicultural/worksheets/1.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/1.png",
+      "sampleCutout": "/assets/themes/multicultural/samples/1.png"
+    },
+    {
+      "id": "heart-speech-friend",
+      "group": 2,
+      "name": "하트 말풍선을 든 친구",
+      "file": "/assets/themes/multicultural/worksheets/2.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/2.png",
+      "sampleCutout": "/assets/themes/multicultural/samples/2.png"
+    },
+    {
+      "id": "food-culture-friend",
+      "group": 3,
+      "name": "세계 음식을 든 친구",
+      "file": "/assets/themes/multicultural/worksheets/3.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/3.png",
+      "sampleCutout": "/assets/themes/multicultural/samples/3.png"
+    },
+    {
+      "id": "heart-hands-earth",
+      "group": 4,
+      "name": "지구를 감싼 하트 손",
+      "file": "/assets/themes/multicultural/worksheets/4.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/4.png",
+      "sampleCutout": "/assets/themes/multicultural/samples/4.png"
+    },
+    {
+      "id": "plant-promise-friend",
+      "group": 5,
+      "name": "함께 자라는 친구",
+      "file": "/assets/themes/multicultural/worksheets/5.png",
+      "thumbnail": "/assets/themes/multicultural/thumbnails/5.png",
+      "sampleCutout": "/assets/themes/multicultural/samples/5.png"
+    }
+  ],
+  "letterSection": {
+    "title": "서로 달라도 함께 빛나요",
+    "prompt": "나와 다른 문화를 존중하기 위해 내가 할 수 있는 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}

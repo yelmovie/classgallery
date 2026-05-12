@@ -1,0 +1,61 @@
+{
+      "name": "에너지 절약 여자아이",
+      "file": "/assets/themes/environment/worksheets/4.png",
+      "thumbnail": "/assets/themes/environment/thumbnails/4.png",
+      "sampleCutout": "/assets/themes/environment/samples/4.png"
+    },
+    {
+      "id": "earth-promise",
+      "group": 5,
+      "name": "지구 친구",
+      "file": "/assets/themes/environment/worksheets/5.png",
+      "thumbnail": "/assets/themes/environment/thumbnails/5.png",
+      "sampleCutout": "/assets/themes/environment/samples/5.png"
+    },
+    {
+      "id": "boy-plant-promise",
+      "group": 6,
+      "name": "식물을 든 남자아이",
+      "file": "/assets/themes/environment/worksheets/6.png",
+      "thumbnail": "/assets/themes/environment/thumbnails/6.png",
+      "sampleCutout": "/assets/themes/environment/samples/6.png"
+    },
+    {
+      "id": "boy-energy-promise",
+      "group": 7,
+      "name": "에너지 절약 남자아이",
+      "file": "/assets/themes/environment/worksheets/7.png",
+      "thumbnail": "/assets/themes/environment/thumbnails/7.png",
+      "sampleCutout": "/assets/themes/environment/samples/7.png"
+    }
+  ],
+  "letterSection": {
+    "title": "지구를 위한 나의 약속",
+    "prompt": "환경을 지키기 위해 내가 실천할 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "id": "safeschool",
+  "name": "안전한 학교",
+  "englishName": "Safe School",
+  "version": "1.0.1",
+  "status": "available",
+  "description": "학교생활 속 여러 안전 상황을 주제로 학생들이 안전 약속을 쓰고, 색칠한 안전 캐릭터를 전시 화면에 띄우는 창체 주제팩입니다.",
+  "shortDescription": "학교생활 속 안전 약속을 색칠하고 전시하는 창체 주제팩",
+  "backgrounds": {
+    "main": "/assets/themes/safeschool/backgrounds/1.png",
+    "alt2": "/assets/themes/safeschool/backgrounds/2.png",
+    "alt3": "/assets/themes/safeschool/backgrounds/3.png",
+    "alt4": "/assets/themes/safeschool/backgrounds/4.png",
+    "alt5": "/assets/themes/safeschool/backgrounds/5.png",
+    "alt6": "/assets/themes/safeschool/backgrounds/6.png"
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": ["paused", "slow", "normal", "fast"],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheetTitle": "안전한 학교 약속 쓰기",
+  "worksheetPrompt": "그림을 보고 안전하게 행동하는 방법을 써 봅시다.",
+  "writingBoxTitle": "내가 지킬 안전 약속",
+  "worksheets": [
+    {
+      "id": "science-lab",      "group": 1, "name": "과학실 안전",            "displayName": "1모둠 · 과학실 안전",            "file": "/assets/themes/safeschool/worksheets/1.png" },
+    {
+      "id": "fire-extinguisher","group": 2, "name": "소화기 안전",            "displayName": "2모둠 · 소화기 안전",            "file": "/assets/themes/safeschool/worksheets/2.png" },
+    {
+      "id": "hallway",          "group": 3, "name": "복도 안전",              "displayName": "3모둠 · 복도 안전",              "file": "/assets/themes/safeschool/worksheets/3.png" },
+    {
+      "id": "tools",            "group": 4, "name": "가위·도구 사용 안전",    "displayName": "4모둠 · 가위·도구 사용 안전",    "file": "/assets/themes/safeschool/worksheets/4.png" },
+    {
+      "id": "commute-traffic",  "group": 5, "name": "등하교 교통안전",        "displayName": "5모둠 · 등하교 교통안전",        "file": "/assets/themes/safeschool/worksheets/5.png" },
+    {
+      "id": "pe-class",         "group": 6, "name": "체육시간 안전",          "displayName": "6모둠 · 체육시간 안전",          "file": "/assets/themes/safeschool/worksheets/6.png" }
+  ],
+  "samples": [
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_48_29 (1).png",
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_48_30 (2).png",
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_48_31 (3).png",
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_48_32 (4).png",
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_49_09.png",
+    "/assets/themes/safeschool/samples/ChatGPT Image 2026년 5월 12일 오후 07_49_17.png"
+  ],
+  "uiLabels": {
+    "themeName": "안전한 학교",
+    "controlTitle": "안전한 학교 전시 준비",
+    "startTheme": "이 주제로 전시 만들기",
+    "exhibitionBadge": "안전한 학교 전시관"
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  },
+  "notes": [
+    "썸네일 폴더는 없음 → 카드 미리보기는 worksheet PNG 자체를 사용한다.",
+    "샘플 파일명은 한글·공백·괄호를 포함하므로 URL 인코딩 처리 후 사용한다.",
+    "샘플 6장은 worksheet 6모둠과 1:1 매핑이 아니라 sample 모드에서 함께 떠다닌다."
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "themeId": "saveearth",
+  "name": "환경교육",
+  "englishName": "Save Earth",
+  "version": "1.0.0",
+  "status": "available",
+  "category": "생활",
+  "shortDescription": "환경을 지키는 약속을 색칠하고 전시하는 주제",
+  "description": "환경을 지키기 위해 내가 실천할 일을 생각하고, 이유와 다짐을 표현해요. 색칠한 캐릭터가 자연 배경 위에 살아 움직입니다.",
+  "backgrounds": {
+    "meadow":   "/assets/themes/saveearth/backgrounds/1.png",
+    "forest":   "/assets/themes/saveearth/backgrounds/2.png",
+    "ocean":    "/assets/themes/saveearth/backgrounds/3.png",
+    "sky":      "/assets/themes/saveearth/backgrounds/4.png",
+    "park":     "/assets/themes/saveearth/backgrounds/5.png",
+    "sunlight": "/assets/themes/saveearth/backgrounds/6.png",
+    "earth":    "/assets/themes/saveearth/backgrounds/7.png"
+  },
+  "defaultBackgroundId": "meadow",
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": ["paused", "slow", "normal", "fast"],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheetTitle": "지구를 위한 나의 약속",
+  "worksheetPrompt": "환경을 지키기 위해 내가 실천할 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+  "writingBoxTitle": "내가 지킬 환경 약속",
+  "worksheets": [
+    { "id": "promise-1", "group": 1, "name": "지구 사랑 1",  "file": "/assets/themes/saveearth/worksheets/1.png", "sampleCutout": "/assets/themes/saveearth/samples/1.png" },
+    { "id": "promise-2", "group": 2, "name": "지구 사랑 2",  "file": "/assets/themes/saveearth/worksheets/2.png", "sampleCutout": "/assets/themes/saveearth/samples/2.png" },
+    { "id": "promise-3", "group": 3, "name": "지구 사랑 3",  "file": "/assets/themes/saveearth/worksheets/3.png", "sampleCutout": "/assets/themes/saveearth/samples/3.png" },
+    { "id": "promise-4", "group": 4, "name": "에너지 절약 1","file": "/assets/themes/saveearth/worksheets/4.png", "sampleCutout": "/assets/themes/saveearth/samples/4.png" },
+    { "id": "promise-5", "group": 5, "name": "지구 친구",    "file": "/assets/themes/saveearth/worksheets/5.png", "sampleCutout": "/assets/themes/saveearth/samples/5.png" },
+    { "id": "promise-6", "group": 6, "name": "식물 가꾸기",  "file": "/assets/themes/saveearth/worksheets/6.png", "sampleCutout": "/assets/themes/saveearth/samples/6.png" },
+    { "id": "promise-7", "group": 7, "name": "에너지 절약 2","file": "/assets/themes/saveearth/worksheets/7.png", "sampleCutout": "/assets/themes/saveearth/samples/7.png" }
+  ],
+  "letterSection": {
+    "title": "지구를 위한 나의 약속",
+    "prompt": "환경을 지키기 위해 내가 실천할 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "themeName": "환경교육",
+    "controlTitle": "환경교육 전시 준비",
+    "exhibitionBadge": "환경교육 전시관",
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  },
+  "notes": [
+    "썸네일 폴더는 없음 → 카드 미리보기는 worksheet PNG 자체를 사용한다.",
+    "코드(constants/themes.ts)는 이 JSON 을 직접 fetch 하지 않는다. JSON은 문서/사양 역할."
+  ]
+}

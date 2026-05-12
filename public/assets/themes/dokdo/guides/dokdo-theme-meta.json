@@ -1,0 +1,100 @@
+{
+  "themeId": "dokdo",
+  "version": "2.0.0",
+  "assetVersion": "20260512",
+  "description": "선생님이 학생들이 색칠한 독도 학습지를 업로드하면, 전시 화면에는 색칠한 캐릭터만 독도 바다 배경 위에 둥둥 떠다니는 창체 전시 주제팩입니다. 활동지 하단의 '독도에게 보내는 편지' 영역은 전시 화면에 절대 표시되지 않습니다.",
+  "backgrounds": {
+    "main": "/assets/themes/dokdo/backgrounds/1.png",
+    "soft": "/assets/themes/dokdo/backgrounds/2.png"
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": ["paused", "slow", "normal", "fast"],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheets": [
+    {
+      "id": "island",
+      "group": 1,
+      "name": "독도섬",
+      "file": "/assets/themes/dokdo/worksheets/1.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/1.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/1.png"
+    },
+    {
+      "id": "sealion",
+      "group": 2,
+      "name": "강치",
+      "file": "/assets/themes/dokdo/worksheets/2.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/2.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/2.png"
+    },
+    {
+      "id": "seagull",
+      "group": 3,
+      "name": "갈매기",
+      "file": "/assets/themes/dokdo/worksheets/3.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/3.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/3.png"
+    },
+    {
+      "id": "lighthouse",
+      "group": 4,
+      "name": "등대",
+      "file": "/assets/themes/dokdo/worksheets/4.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/4.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/4.png"
+    },
+    {
+      "id": "flag",
+      "group": 5,
+      "name": "깃발",
+      "file": "/assets/themes/dokdo/worksheets/5.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/5.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/5.png"
+    },
+    {
+      "id": "boat",
+      "group": 6,
+      "name": "탐험 배",
+      "file": "/assets/themes/dokdo/worksheets/6.png",
+      "thumbnail": "/assets/themes/dokdo/thumbnails/6.png",
+      "sampleCutout": "/assets/themes/dokdo/samples/6.png"
+    }
+  ],
+  "letterSection": {
+    "title": "독도에게 보내는 편지",
+    "prompt": "독도에게 오늘 알게 된 점, 궁금한 점, 지키고 싶은 마음을 담아 편지를 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}

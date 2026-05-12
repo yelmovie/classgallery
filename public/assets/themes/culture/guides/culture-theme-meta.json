@@ -1,0 +1,76 @@
+{
+  "themeId": "culture",
+  "name": "다문화이해교육",
+  "englishName": "Multicultural Understanding",
+  "version": "1.0.0",
+  "status": "available",
+  "category": "시민",
+  "shortDescription": "서로 다른 문화를 존중하는 마음을 색칠하고 전시하는 주제",
+  "description": "나와 다른 문화를 존중하고, 함께 어울리는 방법을 배워요. 색칠한 친구들이 세계 마을 배경 위에 살아 움직입니다.",
+  "backgrounds": {
+    "world":     "/assets/themes/culture/backgrounds/1.png",
+    "festival":  "/assets/themes/culture/backgrounds/2.png",
+    "classroom": "/assets/themes/culture/backgrounds/3.png",
+    "rainbow":   "/assets/themes/culture/backgrounds/4.png",
+    "sky":       "/assets/themes/culture/backgrounds/5.png"
+  },
+  "defaultBackgroundId": "world",
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": ["paused", "slow", "normal", "fast"],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheetTitle": "서로 달라도 함께 빛나요",
+  "worksheetPrompt": "나와 다른 문화를 존중하기 위해 내가 할 수 있는 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+  "writingBoxTitle": "내가 지킬 다문화 존중 약속",
+  "worksheets": [
+    { "id": "culture-1", "group": 1, "name": "함께하는 친구 1", "file": "/assets/themes/culture/worksheets/1.png", "sampleCutout": "/assets/themes/culture/samples/1.png" },
+    { "id": "culture-2", "group": 2, "name": "함께하는 친구 2", "file": "/assets/themes/culture/worksheets/2.png", "sampleCutout": "/assets/themes/culture/samples/2.png" },
+    { "id": "culture-3", "group": 3, "name": "함께하는 친구 3", "file": "/assets/themes/culture/worksheets/3.png", "sampleCutout": "/assets/themes/culture/samples/3.png" },
+    { "id": "culture-4", "group": 4, "name": "함께하는 친구 4", "file": "/assets/themes/culture/worksheets/4.png", "sampleCutout": "/assets/themes/culture/samples/4.png" },
+    { "id": "culture-5", "group": 5, "name": "함께하는 친구 5", "file": "/assets/themes/culture/worksheets/5.png", "sampleCutout": "/assets/themes/culture/samples/5.png" }
+  ],
+  "letterSection": {
+    "title": "서로 달라도 함께 빛나요",
+    "prompt": "나와 다른 문화를 존중하기 위해 내가 할 수 있는 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "themeName": "다문화이해교육",
+    "controlTitle": "다문화이해교육 전시 준비",
+    "exhibitionBadge": "다문화이해교육 전시관",
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  },
+  "notes": [
+    "썸네일 폴더는 없음 → 카드 미리보기는 worksheet PNG 자체를 사용한다.",
+    "코드(constants/themes.ts)는 이 JSON 을 직접 fetch 하지 않는다. JSON은 문서/사양 역할.",
+    "samples 폴더에는 6장이 있어 sample 모드에서 6장 모두 떠다닌다."
+  ]
+}
