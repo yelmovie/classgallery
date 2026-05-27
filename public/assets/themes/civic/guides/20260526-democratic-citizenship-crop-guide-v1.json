@@ -1,0 +1,73 @@
+{
+  "themeId": "civic",
+  "version": "1.0.1",
+  "worksheetRatio": "A4_VERTICAL",
+  "description": "Only crop the top illustration area for exhibition. Do not include the title, prompt text, or writing box in the exhibition cutout.",
+  "characterCropArea": {
+    "x": 0.04,
+    "y": 0.02,
+    "width": 0.92,
+    "height": 0.48
+  },
+  "titleArea": {
+    "x": 0.04,
+    "y": 0.5,
+    "width": 0.92,
+    "height": 0.12
+  },
+  "writingBoxArea": {
+    "x": 0.06,
+    "y": 0.65,
+    "width": 0.88,
+    "height": 0.28
+  },
+  "extractionRules": {
+    "preserveCharacterColor": true,
+    "preserveOriginalRgb": true,
+    "makeCharacterOpaque": true,
+    "removeOnlyOuterPaperBackground": true,
+    "doNotRemoveInnerWhiteAreas": true,
+    "doNotReduceOpacity": true,
+    "addWhiteOuterBorder": true,
+    "addSoftShadow": true,
+    "excludeTitleFromExhibition": true,
+    "excludeWritingBoxFromExhibition": true,
+    "excludeLetterPromptFromExhibition": true
+  },
+  "displayRules": {
+    "displayMode": "character_cutout_only",
+    "doNotDisplayFullWorksheetCard": true,
+    "doNotDisplayTitle": true,
+    "doNotDisplayWritingBox": true,
+    "doNotDisplayLetterSection": true,
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "spotlightEnabled": true
+  },
+  "worksheetLayout": {
+    "topCharacterArea": {
+      "fromY": 0.02,
+      "toY": 0.5
+    },
+    "titleArea": {
+      "fromY": 0.5,
+      "toY": 0.62
+    },
+    "writingArea": {
+      "fromY": 0.65,
+      "toY": 0.93
+    },
+    "letterTitle": "민주시민 다짐 쓰기",
+    "letterPrompt": "오늘 배운 민주시민의 태도와 내가 실천할 약속을 생각하여 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "notes": [
+    "전시 화면에는 학습지 상단 ~50% 영역에서 추출한 캐릭터/그림만 표시되어야 한다.",
+    "titleArea(학습지 제목)와 writingBoxArea(글쓰기 줄/박스)는 전시 화면에 절대 보이지 않는다.",
+    "이미 업로드된 학습지의 cutoutUrl 은 메모리에 캐싱되어 있으므로, crop 기준 변경 후에는 전체 삭제 후 재업로드해야 새 기준이 적용된다.",
+    "보조 안전장치는 crop 영역 조정으로 우선 처리한다 — 픽셀 단위 후처리는 캐릭터를 자를 위험이 있어 사용하지 않는다."
+  ]
+}

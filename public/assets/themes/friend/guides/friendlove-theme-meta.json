@@ -1,146 +1,74 @@
 {
-  "themeId": "friendlove",
-  "slug": "friendlove",
-  "version": "1.0.0",
-  "assetVersion": "20260513",
-  "title": "친구사랑교육",
-  "cardTitle": "친구야, 함께해서 좋아",
-  "description": "친구의 마음을 존중하고, 서로 배려하며 함께 지내는 방법을 배워요.",
-  "category": [
-    "관계",
-    "인성"
-  ],
-  "status": "available",
-  "displayMode": "character_cutout_only",
-  "recommendedFolder": "public/assets/themes/friendlove/",
+  "themeId": "friend",
+  "assetBasePath": "/assets/themes/friend",
   "backgrounds": {
-    "main": "/assets/themes/friendlove/backgrounds/1.png",
-    "soft": "/assets/themes/friendlove/backgrounds/2.png",
-    "options": [
-      {
-        "id": "circle-playground",
-        "group": 1,
-        "name": "함께 노는 운동장",
-        "file": "/assets/themes/friendlove/backgrounds/1.png"
-      },
-      {
-        "id": "classroom-kindness",
-        "group": 2,
-        "name": "배려가 자라는 교실",
-        "file": "/assets/themes/friendlove/backgrounds/2.png"
-      },
-      {
-        "id": "friendship-garden",
-        "group": 3,
-        "name": "우정의 정원",
-        "file": "/assets/themes/friendlove/backgrounds/3.png"
-      },
-      {
-        "id": "rainbow-bridge",
-        "group": 4,
-        "name": "마음을 잇는 다리",
-        "file": "/assets/themes/friendlove/backgrounds/4.png"
-      },
-      {
-        "id": "reading-corner",
-        "group": 5,
-        "name": "함께 읽는 쉬는 시간",
-        "file": "/assets/themes/friendlove/backgrounds/5.png"
-      }
-    ]
-  },
-  "defaultSettings": {
-    "maxArtworks": 30,
-    "recommendedArtworks": 24,
-    "defaultSpeed": "slow",
-    "speedOptions": [
-      "paused",
-      "slow",
-      "normal",
-      "fast"
-    ],
-    "spotlightEnabled": true,
-    "spotlightIntervalSeconds": 5,
-    "teacherUploadOnly": true,
-    "studentDirectUpload": false,
-    "externalDatabase": false
+    "bg1": "/assets/themes/friend/backgrounds/1.png",
+    "bg2": "/assets/themes/friend/backgrounds/2.png",
+    "bg3": "/assets/themes/friend/backgrounds/3.png",
+    "bg4": "/assets/themes/friend/backgrounds/4.png",
+    "bg5": "/assets/themes/friend/backgrounds/5.png"
   },
   "worksheets": [
     {
-      "id": "helping-friend",
+      "id": "friend-worksheet-1",
       "group": 1,
-      "name": "도와주는 친구",
-      "file": "/assets/themes/friendlove/worksheets/1.png",
-      "thumbnail": "/assets/themes/friendlove/thumbnails/1.png",
-      "sampleCutout": "/assets/themes/friendlove/samples/1.png"
+      "file": "/assets/themes/friend/worksheets/1.png",
+      "thumbnail": "/assets/themes/friend/worksheets/1.png",
+      "sampleCutout": "/assets/themes/friend/samples/1.png"
     },
     {
-      "id": "listening-friend",
+      "id": "friend-worksheet-2",
       "group": 2,
-      "name": "들어주는 친구",
-      "file": "/assets/themes/friendlove/worksheets/2.png",
-      "thumbnail": "/assets/themes/friendlove/thumbnails/2.png",
-      "sampleCutout": "/assets/themes/friendlove/samples/2.png"
+      "file": "/assets/themes/friend/worksheets/2.png",
+      "thumbnail": "/assets/themes/friend/worksheets/2.png",
+      "sampleCutout": "/assets/themes/friend/samples/2.png"
     },
     {
-      "id": "sharing-friend",
+      "id": "friend-worksheet-3",
       "group": 3,
-      "name": "나누는 친구",
-      "file": "/assets/themes/friendlove/worksheets/3.png",
-      "thumbnail": "/assets/themes/friendlove/thumbnails/3.png",
-      "sampleCutout": "/assets/themes/friendlove/samples/3.png"
+      "file": "/assets/themes/friend/worksheets/3.png",
+      "thumbnail": "/assets/themes/friend/worksheets/3.png",
+      "sampleCutout": "/assets/themes/friend/samples/3.png"
     },
     {
-      "id": "invite-friend",
+      "id": "friend-worksheet-4",
       "group": 4,
-      "name": "다가가는 친구",
-      "file": "/assets/themes/friendlove/worksheets/4.png",
-      "thumbnail": "/assets/themes/friendlove/thumbnails/4.png",
-      "sampleCutout": "/assets/themes/friendlove/samples/4.png"
+      "file": "/assets/themes/friend/worksheets/4.png",
+      "thumbnail": "/assets/themes/friend/worksheets/4.png",
+      "sampleCutout": "/assets/themes/friend/samples/4.png"
     },
     {
-      "id": "make-peace-friend",
+      "id": "friend-worksheet-5",
       "group": 5,
-      "name": "화해하는 친구",
-      "file": "/assets/themes/friendlove/worksheets/5.png",
-      "thumbnail": "/assets/themes/friendlove/thumbnails/5.png",
-      "sampleCutout": "/assets/themes/friendlove/samples/5.png"
+      "file": "/assets/themes/friend/worksheets/5.png",
+      "thumbnail": "/assets/themes/friend/worksheets/5.png",
+      "sampleCutout": "/assets/themes/friend/samples/5.png"
     }
   ],
-  "letterSection": {
-    "title": "친구야, 함께해서 좋아",
-    "prompt": "친구를 사랑하고 배려하기 위해 내가 할 수 있는 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
-    "writingLines": true,
-    "studentNameField": false,
-    "showInExhibition": false
-  },
-  "uiLabels": {
-    "addArtwork": "작품 추가하기",
-    "movementSpeed": "움직임 빠르기",
-    "paused": "멈춤",
-    "slow": "느리게",
-    "normal": "보통",
-    "fast": "빠르게",
-    "spotlight": "확대 감상",
-    "startExhibition": "전시 시작",
-    "clearAll": "전체 삭제",
-    "viewWorksheets": "활동지 보기",
-    "downloadWorksheet": "활동지 다운로드",
-    "printNote": "이 활동지는 A4 세로 출력용입니다.",
-    "imageLoadFallback": "이미지를 불러올 수 없어요"
-  },
-  "privacyRules": {
-    "collectStudentName": false,
-    "collectStudentFace": false,
-    "studentDirectUpload": false,
-    "useLogin": false,
-    "useExternalDatabase": false,
-    "teacherOnlyUpload": true
-  },
-  "assetPrompts": {
-    "globalStyle": "cool pastel watercolor, clean classroom display style, no warm tone, no yellow or amber lighting, no text unless worksheet text is explicitly required",
-    "backgroundSize": "16:9 wide background, recommended 1920x1080",
-    "characterSize": "transparent PNG character cutout, recommended 1024x1024",
-    "worksheetSize": "A4 vertical worksheet, recommended 2480x3508 px"
-  }
+  "samples": [
+    {
+      "id": "friend-sample-1",
+      "file": "/assets/themes/friend/samples/1.png"
+    },
+    {
+      "id": "friend-sample-2",
+      "file": "/assets/themes/friend/samples/2.png"
+    },
+    {
+      "id": "friend-sample-3",
+      "file": "/assets/themes/friend/samples/3.png"
+    },
+    {
+      "id": "friend-sample-4",
+      "file": "/assets/themes/friend/samples/4.png"
+    },
+    {
+      "id": "friend-sample-5",
+      "file": "/assets/themes/friend/samples/5.png"
+    },
+    {
+      "id": "friend-sample-6",
+      "file": "/assets/themes/friend/samples/6.png"
+    }
+  ]
 }

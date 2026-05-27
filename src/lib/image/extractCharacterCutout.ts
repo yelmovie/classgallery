@@ -3,6 +3,7 @@ import {
   removeOuterPaperBackground,
   findOpaqueBoundingBox,
 } from './canvasBackgroundRemoval';
+import { detectPaperRegion } from './detectPaperRegion';
 import type { ThemeCropArea } from '../../types/theme';
 
 /**
@@ -25,6 +26,22 @@ export async function extractCharacterCutout(
   return processImageToCutout(img, { applyInitialCrop: true, cropArea });
 }
 
+export interface ExtractWorksheetOptions {
+  /** 사용자 정의 crop 영역 (테마별). applyInitialCrop=true 일 때만 적용. */
+  cropArea?: ThemeCropArea;
+  /**
+   * 초기 직사각형 crop을 적용할지. 기본 true. 카메라 캡처처럼 학습지가
+   * 프레임에 어떻게 들어올지 모르는 경우 false 로 설정해 전체 프레임에서
+   * 캐릭터 추출.
+   */
+  applyInitialCrop?: boolean;
+  /**
+   * true 면 먼저 사진 안에서 밝은 종이 영역을 자동 탐지해 그 영역을
+   * cropArea 로 사용한다 (카메라 캡처용). 탐지 실패 시 다른 옵션으로 폴백.
+   */
+  detectPaperRegion?: boolean;
+}
+
 /**
  * 학습지 한 장 → 전시용 cutout + 확대 감상용 원본 dataURL 둘 다 생성.
  * 이미지를 한 번만 디코드해서 두 결과를 만든다.
@@ -36,10 +53,46 @@ export async function extractCharacterCutout(
  */
 export async function extractWorksheetData(
   file: File,
-  cropArea?: ThemeCropArea,
+  cropAreaOrOptions?: ThemeCropArea | ExtractWorksheetOptions,
 ): Promise<{ cutoutUrl: string; originalImageUrl: string }> {
+  const opts: ExtractWorksheetOptions =
+    cropAreaOrOptions && 'x' in cropAreaOrOptions
+      ? { cropArea: cropAreaOrOptions, applyInitialCrop: true }
+      : { applyInitialCrop: true, ...(cropAreaOrOptions ?? {}) };
+
   const img = await loadImageFromFile(file);
-  const cutoutUrl = processImageToCutout(img, { applyInitialCrop: true, cropArea });
+
+  // 종이 영역 자동 탐지: 탐지 성공 시 테마의 character cropArea를
+  // 검출된 종이 내부에 매핑해서 최종 crop 좌표를 산출한다.
+  // 탐지 실패 시 opts 그대로 폴백.
+  let effectiveOpts = opts;
+  if (opts.detectPaperRegion) {
+    const paper = detectPaperRegion(img);
+    if (paper) {
+      // 테마가 지정한 캐릭터 영역(A4 기준 비율)을 검출된 종이 픽셀 좌표 안에 적용.
+      const charCrop = opts.cropArea ?? IMAGE_EXTRACTION_CONFIG.initialCropArea;
+      const absX = paper.x + paper.width  * charCrop.x;
+      const absY = paper.y + paper.height * charCrop.y;
+      const absW = paper.width  * charCrop.width;
+      const absH = paper.height * charCrop.height;
+      effectiveOpts = {
+        ...opts,
+        applyInitialCrop: true,
+        cropArea: {
+          x: absX / img.naturalWidth,
+          y: absY / img.naturalHeight,
+          width:  absW / img.naturalWidth,
+          height: absH / img.naturalHeight,
+        },
+      };
+    }
+    // 탐지 실패 시 원래 옵션(applyInitialCrop 등) 그대로 폴백.
+  }
+
+  const cutoutUrl = processImageToCutout(img, {
+    applyInitialCrop: effectiveOpts.applyInitialCrop ?? true,
+    cropArea: effectiveOpts.cropArea,
+  });
   const originalImageUrl = createDownscaledOriginalDataUrl(img);
   return { cutoutUrl, originalImageUrl };
 }
@@ -84,6 +137,38 @@ function createDownscaledOriginalDataUrl(img: HTMLImageElement): string {
 export async function extractCharacterCutoutFromUrl(url: string): Promise<string> {
   const img = await loadImageFromUrl(url);
   return processImageToCutout(img, { applyInitialCrop: false });
+}
+
+// 독도 학습지 사진용 기본 캐릭터 영역 (상단 절반)
+const WORKSHEET_PHOTO_CROP: ThemeCropArea = { x: 0.04, y: 0.02, width: 0.92, height: 0.48 };
+
+/**
+ * 실제 학습지 촬영 사진 URL → 캐릭터 cutout PNG dataURL.
+ *
+ * 1. 사진에서 흰 종이 영역을 자동 탐지 (detectPaperRegion).
+ * 2. 탐지된 종이 안에 WORKSHEET_PHOTO_CROP 을 적용해 캐릭터 영역 계산.
+ * 3. 탐지 실패 시 전체 이미지에 WORKSHEET_PHOTO_CROP 을 직접 적용.
+ */
+export async function extractWorksheetCutoutFromUrl(url: string): Promise<string> {
+  const img = await loadImageFromUrl(url);
+
+  let opts: ProcessOptions = { applyInitialCrop: true, cropArea: WORKSHEET_PHOTO_CROP };
+
+  const paper = detectPaperRegion(img);
+  if (paper) {
+    const c = WORKSHEET_PHOTO_CROP;
+    opts = {
+      applyInitialCrop: true,
+      cropArea: {
+        x:      (paper.x + paper.width  * c.x) / img.naturalWidth,
+        y:      (paper.y + paper.height * c.y) / img.naturalHeight,
+        width:  (paper.width  * c.width)        / img.naturalWidth,
+        height: (paper.height * c.height)        / img.naturalHeight,
+      },
+    };
+  }
+
+  return processImageToCutout(img, opts);
 }
 
 interface ProcessOptions {

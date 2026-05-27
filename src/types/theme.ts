@@ -4,6 +4,13 @@ export type ThemeId =
   | 'saveearth'
   | 'culture'
   | 'friend'
+  | 'noviolence'
+  | 'summer'
+  | 'civic'
+  | 'aiethnic'
+  | 'smartphone'
+  | 'food'
+  | 'winter'
   | 'earth'
   | 'mind'
   | 'future'
@@ -41,7 +48,8 @@ export interface ThemeBackground {
  * status="coming-soon" 테마는 자산이 비어있고 carousel에서 placeholder 로 표시된다.
  */
 export interface ThemeMeta {
-  id: ThemeId;
+  /** 기본 테마는 ThemeId, 커스텀 테마는 'custom-...' 형태의 임의 string. */
+  id: ThemeId | string;
   name: string;
   englishName?: string;
   emoji: string;

@@ -11,28 +11,27 @@ export interface SpriteState {
   size: number;
 }
 
-const SIZE_TIERS = [
-  { maxCount: 6,  factor: 0.16 },
-  { maxCount: 12, factor: 0.13 },
-  { maxCount: 18, factor: 0.11 },
-  { maxCount: 24, factor: 0.095 },
-  { maxCount: 30, factor: 0.08 },
-];
-
+// 스프라이트 전체가 차지할 무대 면적 비율 목표치.
+// 24명 기준으로도 캐릭터가 충분히 크게 보이도록 0.50으로 확대.
+const TARGET_COVERAGE = 0.55;
 const SIZE_BOUNDS = {
-  minRatio: 0.06,
-  maxRatio: 0.20,
+  minRatio: 0.161,  // 0.14 × 1.15 = 16.1% (이전 대비 +15%)
+  maxRatio: 0.368,  // 0.32 × 1.15 = 36.8%
 };
 
 const ROTATION_LIMIT_DEG = 4;
 const BASE_SPEED_RANGE = { min: 0.22, max: 0.42 };
 
-export function computeSpriteSize(count: number, stageWidth: number): number {
-  const tier = SIZE_TIERS.find((t) => count <= t.maxCount) ?? SIZE_TIERS[SIZE_TIERS.length - 1];
-  const target = stageWidth * tier.factor;
-  const min = stageWidth * SIZE_BOUNDS.minRatio;
-  const max = stageWidth * SIZE_BOUNDS.maxRatio;
-  return Math.max(min, Math.min(max, target));
+export function computeSpriteSize(
+  count: number,
+  stageWidth: number,
+  stageHeight: number,
+): number {
+  if (count <= 0 || stageWidth <= 0 || stageHeight <= 0) return 0;
+  const aspect = stageWidth / stageHeight;
+  const target = Math.sqrt(TARGET_COVERAGE / Math.max(1, count * aspect));
+  const factor = Math.max(SIZE_BOUNDS.minRatio, Math.min(SIZE_BOUNDS.maxRatio, target));
+  return stageWidth * factor;
 }
 
 /**
@@ -49,7 +48,7 @@ export function initSprites(
   const count = artworks.length;
   if (count === 0 || stageWidth <= 0 || stageHeight <= 0) return [];
 
-  const size = computeSpriteSize(count, stageWidth);
+  const size = computeSpriteSize(count, stageWidth, stageHeight);
 
   // 화면 비율을 고려한 그리드 (예: 16:9면 가로가 더 많은 셀)
   const aspect = stageWidth / stageHeight;

@@ -3,7 +3,6 @@ import ExhibitionStage from './ExhibitionStage';
 import { useProcessedSamples } from '../../lib/image/useProcessedSamples';
 import { THEME_LIST } from '../../constants/themes';
 import { getDefaultBackground } from '../../lib/themes/getThemeBackgrounds';
-import type { ThemeMeta } from '../../types/theme';
 
 /**
  * 홈 화면의 샘플 전시 미리보기 carousel.
@@ -15,17 +14,18 @@ import type { ThemeMeta } from '../../types/theme';
  * 자체적으로 stage 영역을 갖지만, 스크린샷 캡처 대상 #exhibition-stage 는
  * /display 페이지에만 부여한다 (이 carousel 은 홍보용).
  */
+const AVAILABLE_THEMES = THEME_LIST.filter((t) => t.status === 'available');
+
 export default function SampleCarousel() {
   const [index, setIndex] = useState(0);
-  const current = THEME_LIST[index];
+  const current = AVAILABLE_THEMES[index];
 
   // 성능: 현재 슬라이드가 available 이고 sampleUrls 가 있을 때만 sample 가공.
-  const sampleUrlsForCurrent =
-    current.status === 'available' && current.sampleUrls ? current.sampleUrls : [];
+  const sampleUrlsForCurrent = current.sampleUrls ?? [];
   const { samples } = useProcessedSamples(sampleUrlsForCurrent);
 
   const go = useCallback((dir: -1 | 1) => {
-    setIndex((i) => (i + dir + THEME_LIST.length) % THEME_LIST.length);
+    setIndex((i) => (i + dir + AVAILABLE_THEMES.length) % AVAILABLE_THEMES.length);
   }, []);
 
   // 키보드 좌우 화살표 지원
@@ -57,14 +57,9 @@ export default function SampleCarousel() {
         </div>
         <span
           className="badge"
-          style={{
-            fontSize: 11,
-            background: current.status === 'available' ? '#e6f8f0' : '#f1f4f7',
-            color: current.status === 'available' ? '#1f8c5d' : 'var(--color-muted)',
-            border: 'none',
-          }}
+          style={{ fontSize: 11, background: '#e6f8f0', color: '#1f8c5d', border: 'none' }}
         >
-          {current.status === 'available' ? '사용 가능' : '추가 예정'}
+          사용 가능
         </span>
       </div>
 
@@ -76,16 +71,12 @@ export default function SampleCarousel() {
         aspectRatio: '16/9',
         background: 'var(--color-bg)',
       }}>
-        {current.status === 'available' ? (
-          <ExhibitionStage
-            items={previewItems}
-            speedMode="slow"
-            compact
-            backgroundUrl={getDefaultBackground(current)?.file}
-          />
-        ) : (
-          <PlaceholderSlide theme={current} />
-        )}
+        <ExhibitionStage
+          items={previewItems}
+          speedMode="slow"
+          compact
+          backgroundUrl={getDefaultBackground(current)?.file}
+        />
 
         <CarouselArrow direction="left"  onClick={() => go(-1)} />
         <CarouselArrow direction="right" onClick={() => go(1)} />
@@ -95,7 +86,7 @@ export default function SampleCarousel() {
         display: 'flex', justifyContent: 'center', gap: 6,
         marginTop: 14,
       }}>
-        {THEME_LIST.map((t, i) => (
+        {AVAILABLE_THEMES.map((t, i) => (
           <button
             key={t.id}
             type="button"
@@ -149,42 +140,5 @@ function CarouselArrow({ direction, onClick }: {
     >
       {direction === 'left' ? '‹' : '›'}
     </button>
-  );
-}
-
-function PlaceholderSlide({ theme }: { theme: ThemeMeta }) {
-  return (
-    <div style={{
-      width: '100%', height: '100%',
-      background: theme.placeholderGradient ?? 'var(--color-primary-light)',
-      display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center',
-      gap: 14, padding: 24,
-    }}>
-      <span style={{ fontSize: 64 }}>{theme.emoji}</span>
-      <div style={{
-        fontSize: 20, fontWeight: 800, color: '#fff',
-        textShadow: '0 2px 8px rgba(0,0,0,0.18)',
-      }}>
-        {theme.name}
-      </div>
-      <span
-        style={{
-          fontSize: 12, fontWeight: 700,
-          padding: '5px 12px', borderRadius: 99,
-          background: 'rgba(255,255,255,0.85)',
-          color: 'var(--color-text)',
-        }}
-      >
-        추가 예정
-      </span>
-      <p style={{
-        fontSize: 13, color: 'rgba(255,255,255,0.95)',
-        textShadow: '0 1px 4px rgba(0,0,0,0.18)',
-        marginTop: 4,
-      }}>
-        다음 학기에 만나요
-      </p>
-    </div>
   );
 }

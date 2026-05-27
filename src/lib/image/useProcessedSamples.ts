@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { extractCharacterCutoutFromUrl } from './extractCharacterCutout';
+import { extractCharacterCutoutFromUrl, extractWorksheetCutoutFromUrl } from './extractCharacterCutout';
 
 export interface ProcessedSample {
   id: string;
@@ -16,7 +16,7 @@ function processSampleOnce(url: string): Promise<string> {
   const existing = sampleCache.get(url);
   if (existing) return existing;
   const promise = extractCharacterCutoutFromUrl(url).catch((err) => {
-    console.warn('[sample cutout] 처리 실패, 원본 사용:', url, err);
+    if (import.meta.env.DEV) console.warn('[sample cutout] 처리 실패, 원본 사용:', url, err);
     return url;
   });
   sampleCache.set(url, promise);
@@ -55,6 +55,54 @@ export function useProcessedSamples(urls: string[]): {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlsKey]);
+
+  return { samples, isReady: samples.length > 0 };
+}
+
+// 학습지 사진용 별도 캐시 (paper detection 포함 처리)
+const worksheetCache = new Map<string, Promise<string>>();
+
+function processWorksheetOnce(url: string): Promise<string> {
+  const existing = worksheetCache.get(url);
+  if (existing) return existing;
+  const promise = extractWorksheetCutoutFromUrl(url).catch((err) => {
+    if (import.meta.env.DEV) console.warn('[worksheet cutout] 처리 실패, 원본 사용:', url, err);
+    return url;
+  });
+  worksheetCache.set(url, promise);
+  return promise;
+}
+
+/**
+ * 실제 학습지 촬영 사진 URL 목록을 처리해 캐릭터 cutout 을 반환.
+ * detectPaperRegion 포함 처리이므로 useProcessedSamples 와 캐시를 분리한다.
+ */
+export function useWorksheetSamples(urls: string[]): {
+  samples: ProcessedSample[];
+  isReady: boolean;
+} {
+  const [samples, setSamples] = useState<ProcessedSample[]>([]);
+  const urlsKey = urls.join('|');
+
+  useEffect(() => {
+    let cancelled = false;
+    if (urls.length === 0) {
+      setSamples([]);
+      return;
+    }
+    (async () => {
+      const results = await Promise.all(
+        urls.map(async (url, i) => ({
+          id: `ws-${i}-${url}`,
+          originalUrl: url,
+          cutoutUrl: await processWorksheetOnce(url),
+        })),
+      );
+      if (!cancelled) setSamples(results);
+    })();
+    return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlsKey]);
 

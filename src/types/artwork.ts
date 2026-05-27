@@ -24,7 +24,8 @@ export interface Artwork {
 export type SpeedMode = 'paused' | 'slow' | 'normal' | 'fast';
 
 export interface GalleryState {
-  currentTheme: ThemeId;
+  /** 기본 테마 ID(ThemeId) 또는 커스텀 테마 ID('custom-...'). */
+  currentTheme: ThemeId | string;
   /** 선생님이 선택한 전시 배경 id. null 이면 테마의 default 사용. */
   selectedBackgroundId: string | null;
   artworks: Artwork[];
@@ -34,7 +35,7 @@ export interface GalleryState {
 }
 
 export type GalleryAction =
-  | { type: 'SET_THEME'; payload: ThemeId }
+  | { type: 'SET_THEME'; payload: ThemeId | string }
   | { type: 'SET_BACKGROUND'; payload: string | null }
   | { type: 'ADD_ARTWORKS'; payload: Artwork[] }
   | { type: 'SET_ARTWORKS'; payload: Artwork[] }

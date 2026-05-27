@@ -1,0 +1,126 @@
+{
+  "themeId": "summer",
+  "assetBasePath": "/assets/themes/summer",
+  "backgrounds": {
+    "bg1": "/assets/themes/summer/backgrounds/1.png",
+    "bg2": "/assets/themes/summer/backgrounds/2.png",
+    "bg3": "/assets/themes/summer/backgrounds/3.png",
+    "bg4": "/assets/themes/summer/backgrounds/4.png",
+    "bg5": "/assets/themes/summer/backgrounds/5.png",
+    "bg6": "/assets/themes/summer/backgrounds/6.png"
+  },
+  "worksheets": [
+    {
+      "id": "summer-worksheet-1",
+      "group": 1,
+      "file": "/assets/themes/summer/worksheets/1.png",
+      "thumbnail": "/assets/themes/summer/worksheets/1.png",
+      "sampleCutout": "/assets/themes/summer/samples/1.png"
+    },
+    {
+      "id": "summer-worksheet-2",
+      "group": 2,
+      "file": "/assets/themes/summer/worksheets/2.png",
+      "thumbnail": "/assets/themes/summer/worksheets/2.png",
+      "sampleCutout": "/assets/themes/summer/samples/2.png"
+    },
+    {
+      "id": "summer-worksheet-3",
+      "group": 3,
+      "file": "/assets/themes/summer/worksheets/3.png",
+      "thumbnail": "/assets/themes/summer/worksheets/3.png",
+      "sampleCutout": "/assets/themes/summer/samples/3.png"
+    },
+    {
+      "id": "summer-worksheet-4",
+      "group": 4,
+      "file": "/assets/themes/summer/worksheets/4.png",
+      "thumbnail": "/assets/themes/summer/worksheets/4.png",
+      "sampleCutout": "/assets/themes/summer/samples/4.png"
+    },
+    {
+      "id": "summer-worksheet-5",
+      "group": 5,
+      "file": "/assets/themes/summer/worksheets/5.png",
+      "thumbnail": "/assets/themes/summer/worksheets/5.png",
+      "sampleCutout": "/assets/themes/summer/samples/5.png"
+    },
+    {
+      "id": "summer-worksheet-6",
+      "group": 6,
+      "file": "/assets/themes/summer/worksheets/6.png",
+      "thumbnail": "/assets/themes/summer/worksheets/6.png",
+      "sampleCutout": "/assets/themes/summer/samples/6.png"
+    },
+    {
+      "id": "summer-worksheet-7",
+      "group": 7,
+      "file": "/assets/themes/summer/worksheets/7.png",
+      "thumbnail": "/assets/themes/summer/worksheets/7.png",
+      "sampleCutout": "/assets/themes/summer/samples/7.png"
+    },
+    {
+      "id": "summer-worksheet-8",
+      "group": 8,
+      "file": "/assets/themes/summer/worksheets/8.png",
+      "thumbnail": "/assets/themes/summer/worksheets/8.png",
+      "sampleCutout": "/assets/themes/summer/samples/8.png"
+    },
+    {
+      "id": "summer-worksheet-9",
+      "group": 9,
+      "file": "/assets/themes/summer/worksheets/9.png",
+      "thumbnail": "/assets/themes/summer/worksheets/9.png",
+      "sampleCutout": "/assets/themes/summer/samples/9.png"
+    },
+    {
+      "id": "summer-worksheet-10",
+      "group": 10,
+      "file": "/assets/themes/summer/worksheets/10.png",
+      "thumbnail": "/assets/themes/summer/worksheets/10.png",
+      "sampleCutout": "/assets/themes/summer/samples/10.png"
+    }
+  ],
+  "samples": [
+    {
+      "id": "summer-sample-1",
+      "file": "/assets/themes/summer/samples/1.png"
+    },
+    {
+      "id": "summer-sample-2",
+      "file": "/assets/themes/summer/samples/2.png"
+    },
+    {
+      "id": "summer-sample-3",
+      "file": "/assets/themes/summer/samples/3.png"
+    },
+    {
+      "id": "summer-sample-4",
+      "file": "/assets/themes/summer/samples/4.png"
+    },
+    {
+      "id": "summer-sample-5",
+      "file": "/assets/themes/summer/samples/5.png"
+    },
+    {
+      "id": "summer-sample-6",
+      "file": "/assets/themes/summer/samples/6.png"
+    },
+    {
+      "id": "summer-sample-7",
+      "file": "/assets/themes/summer/samples/7.png"
+    },
+    {
+      "id": "summer-sample-8",
+      "file": "/assets/themes/summer/samples/8.png"
+    },
+    {
+      "id": "summer-sample-9",
+      "file": "/assets/themes/summer/samples/9.png"
+    },
+    {
+      "id": "summer-sample-10",
+      "file": "/assets/themes/summer/samples/10.png"
+    }
+  ]
+}

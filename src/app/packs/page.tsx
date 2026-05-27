@@ -6,8 +6,9 @@ import TopicFilterTabs from '../../components/topics/TopicFilterTabs';
 import TopicComingSoonModal from '../../components/topics/TopicComingSoonModal';
 import { filterTopicPacks } from '../../data/topicPacks';
 import type { TopicCategory, TopicPack } from '../../types/topicPack';
-import { THEMES_BY_ID } from '../../constants/themes';
-import type { ThemeId } from '../../types/theme';
+import { getThemeMeta } from '../../constants/themes';
+import { useCustomThemes } from '../../context/CustomThemeContext';
+import type { ThemeWorksheet } from '../../types/theme';
 
 /**
  * 주제 고르기 화면.
@@ -19,11 +20,12 @@ export default function PacksPage() {
   const navigate = useNavigate();
   const [activeCat, setActiveCat] = useState<'all' | TopicCategory>('all');
   const [comingSoon, setComingSoon] = useState<TopicPack | null>(null);
-  const [worksheetsTheme, setWorksheetsTheme] = useState<ThemeId | null>(null);
-  const [detailTheme, setDetailTheme] = useState<ThemeId>('dokdo');
+  const [worksheetsTheme, setWorksheetsTheme] = useState<string | null>(null);
+  const [detailTheme, setDetailTheme] = useState<string>('dokdo');
+  const { customThemes } = useCustomThemes();
 
   const filtered = useMemo(() => filterTopicPacks(activeCat), [activeCat]);
-  const detailThemeMeta = THEMES_BY_ID[detailTheme];
+  const detailThemeMeta = getThemeMeta(detailTheme);
 
   const handleCardClick = (topic: TopicPack) => {
     if (topic.status === 'available' && topic.themeId) {
@@ -81,6 +83,50 @@ export default function PacksPage() {
           </p>
         </header>
 
+        {/* 모든 주제 공통 수업 활용 흐름 (카드마다 반복하지 않고 상단에서 한 번만 안내) */}
+        <section
+          aria-label="수업 활용 예시"
+          style={{
+            background: 'var(--color-primary-light)',
+            borderRadius: 14,
+            padding: '14px 18px',
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12,
+          }}
+        >
+          <span style={{
+            fontSize: 12.5,
+            color: 'var(--color-primary-dark)',
+            fontWeight: 800,
+            letterSpacing: '0.02em',
+          }}>
+            수업 활용 예시
+          </span>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {['활동지 출력', '학생 색칠/글쓰기', '교사 업로드', '전시 감상'].map((step, i) => (
+              <span
+                key={step}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  padding: '5px 10px',
+                  borderRadius: 99,
+                  background: 'rgba(255,255,255,0.85)',
+                  color: 'var(--color-primary-dark)',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  lineHeight: 1.2,
+                }}
+              >
+                {i + 1}. {step}
+              </span>
+            ))}
+          </div>
+        </section>
+
         {/* 필터 탭 */}
         <TopicFilterTabs active={activeCat} onChange={setActiveCat} />
 
@@ -106,6 +152,53 @@ export default function PacksPage() {
           </div>
         )}
 
+        {/* 관리자가 만든 커스텀 주제 */}
+        {customThemes.length > 0 && (
+          <section>
+            <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--color-text)', marginBottom: 16 }}>
+              🛡️ 관리자 추가 주제
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 18,
+            }}>
+              {customThemes.map((t) => (
+                <div
+                  key={t.id}
+                  onClick={() => {
+                    setDetailTheme(t.id);
+                    requestAnimationFrame(() => {
+                      document.getElementById('topic-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                  }}
+                  style={{
+                    background: '#fff', borderRadius: 18, padding: '20px 22px',
+                    border: '2px solid #c8ead8', cursor: 'pointer',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                    display: 'flex', alignItems: 'center', gap: 14,
+                    transition: 'box-shadow 0.15s',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.boxShadow = '0 6px 24px rgba(31,111,186,0.15)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'; }}
+                >
+                  <span style={{ fontSize: 36 }}>{t.emoji}</span>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: 16, color: 'var(--color-text)' }}>{t.name}</div>
+                    <div style={{ fontSize: 12, color: 'var(--color-muted)', marginTop: 3 }}>
+                      배경 {t.backgrounds?.length ?? 0}장 · 학습지 {t.worksheets?.length ?? 0}장
+                    </div>
+                    <span style={{
+                      display: 'inline-block', marginTop: 6, fontSize: 11, fontWeight: 700,
+                      padding: '2px 10px', borderRadius: 99, background: '#1a8c5d', color: '#fff',
+                    }}>사용 가능</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* 사용 가능 주제 상세 영역: 활동지 + 전시 만들기 진입 */}
         {detailThemeMeta && detailThemeMeta.worksheets && (
           <section id="topic-detail" className="card fade-in" style={{ padding: 32 }}>
@@ -124,7 +217,7 @@ export default function PacksPage() {
               gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
               gap: 14, marginBottom: 28,
             }}>
-              {detailThemeMeta.worksheets.map((ws) => (
+              {detailThemeMeta.worksheets.map((ws: ThemeWorksheet) => (
                 <div
                   key={ws.id}
                   title={ws.displayName}

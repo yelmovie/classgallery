@@ -16,7 +16,7 @@ export const CONTACT_FORM_URL_PLACEHOLDER = 'PUT_GOOGLE_FORM_URL_HERE';
 
 export const siteConfig = {
   title: 'CLASS GALLERY',
-  contactFormUrl: CONTACT_FORM_URL_PLACEHOLDER,
+  contactFormUrl: 'https://www.instagram.com/moviesamm',
 } as const;
 
 export function isContactFormUrlConfigured(url: string): boolean {

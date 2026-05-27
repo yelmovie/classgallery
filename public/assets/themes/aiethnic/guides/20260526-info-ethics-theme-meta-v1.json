@@ -1,0 +1,139 @@
+{
+  "themeId": "aiethnic",
+  "version": "1.0.1",
+  "assetVersion": "20260526",
+  "description": "선생님이 학생들이 색칠한 정보통신 윤리 학습지를 업로드하면, 전시 화면에는 색칠한 캐릭터만 배경 위에 둥둥 떠다니는 창체 전시 주제팩입니다. 활동지 하단의 글쓰기 영역은 전시 화면에 절대 표시되지 않습니다.",
+  "backgrounds": {
+    "main": "/assets/themes/aiethnic/backgrounds/1.png",
+    "soft": "/assets/themes/aiethnic/backgrounds/2.png",
+    "options": [
+      "/assets/themes/aiethnic/backgrounds/1.png",
+      "/assets/themes/aiethnic/backgrounds/2.png",
+      "/assets/themes/aiethnic/backgrounds/3.png",
+      "/assets/themes/aiethnic/backgrounds/4.png",
+      "/assets/themes/aiethnic/backgrounds/5.png"
+    ]
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": ["paused", "slow", "normal", "fast"],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheets": [
+    {
+      "id": "smart-device-promise",
+      "group": 1,
+      "name": "스마트 기기를 바르게 사용해요",
+      "file": "/assets/themes/aiethnic/worksheets/1.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/1.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/1.png"
+    },
+    {
+      "id": "kind-comments",
+      "group": 2,
+      "name": "댓글도 예쁘게 써요",
+      "file": "/assets/themes/aiethnic/worksheets/2.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/2.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/2.png"
+    },
+    {
+      "id": "personal-info-protection",
+      "group": 3,
+      "name": "개인정보를 소중히 지켜요",
+      "file": "/assets/themes/aiethnic/worksheets/3.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/3.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/3.png"
+    },
+    {
+      "id": "copyright-respect",
+      "group": 4,
+      "name": "저작권을 존중해요",
+      "file": "/assets/themes/aiethnic/worksheets/4.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/4.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/4.png"
+    },
+    {
+      "id": "prevent-fake-news",
+      "group": 5,
+      "name": "거짓 정보는 다시 확인해요",
+      "file": "/assets/themes/aiethnic/worksheets/5.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/5.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/5.png"
+    },
+    {
+      "id": "healthy-screen-time",
+      "group": 6,
+      "name": "디지털 기기를 건강하게 써요",
+      "file": "/assets/themes/aiethnic/worksheets/6.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/6.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/6.png"
+    },
+    {
+      "id": "cyberbullying-stop",
+      "group": 7,
+      "name": "사이버 괴롭힘을 멈춰요",
+      "file": "/assets/themes/aiethnic/worksheets/7.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/7.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/7.png"
+    },
+    {
+      "id": "safe-password",
+      "group": 8,
+      "name": "안전한 비밀번호를 사용해요",
+      "file": "/assets/themes/aiethnic/worksheets/8.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/8.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/8.png"
+    },
+    {
+      "id": "online-friendship",
+      "group": 9,
+      "name": "온라인에서도 서로 존중해요",
+      "file": "/assets/themes/aiethnic/worksheets/9.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/9.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/9.png"
+    },
+    {
+      "id": "digital-ethics-promise",
+      "group": 10,
+      "name": "정보통신 윤리를 약속해요",
+      "file": "/assets/themes/aiethnic/worksheets/10.png",
+      "thumbnail": "/assets/themes/aiethnic/worksheets/10.png",
+      "sampleCutout": "/assets/themes/aiethnic/samples/10.png"
+    }
+  ],
+  "letterSection": {
+    "title": "정보통신 윤리 실천 다짐",
+    "prompt": "오늘 배운 정보통신 윤리 내용을 떠올리며, 내가 지키고 싶은 약속과 바른 사용 습관을 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}

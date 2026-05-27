@@ -11,7 +11,7 @@
   --color-danger: #e05252;
   --color-success: #2db87e;
   --color-text: #183b56;
-  --color-muted: #607587;
+  --color-muted: #526879;
   --color-border: rgba(47, 128, 216, 0.15);
   --radius-card: 20px;
   --radius-btn: 12px;
@@ -265,4 +265,170 @@ button { cursor: pointer; font-family: inherit; }
   color: var(--color-muted);
   line-height: 1.6;
   margin: 0;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 40, 65, 0.36);
+  backdrop-filter: blur(6px);
+}
+
+.dialog-panel {
+  width: min(100%, 380px);
+  padding: 24px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-solid);
+  box-shadow: var(--shadow-card);
+}
+
+.dialog-panel h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.dialog-panel p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding: 36px 20px 56px !important;
+  }
+
+  .home-hero .hero-title {
+    font-size: 48px !important;
+  }
+
+  .control-shell {
+    grid-template-columns: 1fr !important;
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  .control-shell > aside,
+  .control-shell > section {
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--color-border);
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 640px) {
+  nav {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .btn {
+    white-space: normal;
+    min-height: 36px;
+  }
+
+  .dialog-actions .btn {
+    flex: 1 1 120px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .worksheet-print-root,
+  .worksheet-print-root * {
+    visibility: visible !important;
+  }
+
+  .worksheet-print-root {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .worksheet-print-header {
+    display: none !important;
+  }
+
+  .worksheet-print-controls {
+    display: none !important;
+  }
+
+  .worksheet-print-grid {
+    display: block !important;
+    padding: 0 !important;
+  }
+
+  .worksheet-card {
+    width: 100% !important;
+    min-height: calc(297mm - 20mm) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    page-break-after: always;
+  }
+
+  .worksheet-card:last-child {
+    page-break-after: auto;
+  }
+
+  .worksheet-card > div:first-child,
+  .worksheet-card > div:last-child {
+    display: none !important;
+  }
+
+  .worksheet-print-page {
+    width: 100% !important;
+    min-height: calc(297mm - 20mm) !important;
+    aspect-ratio: auto !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  .worksheet-print-page img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: calc(297mm - 20mm) !important;
+    object-fit: contain !important;
+    border-radius: 0 !important;
+  }
 }

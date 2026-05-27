@@ -60,7 +60,7 @@ interface GalleryContextValue {
   setSpeed: (mode: SpeedMode) => void;
   setSpotlight: (enabled: boolean) => void;
   advanceSpotlight: () => void;
-  setTheme: (themeId: ThemeId) => void;
+  setTheme: (themeId: ThemeId | string) => void;
   setBackground: (backgroundId: string | null) => void;
 }
 
@@ -92,7 +92,7 @@ export function GalleryProvider({ children }: { children: React.ReactNode }) {
   const setSpeed = (mode: SpeedMode) => dispatch({ type: 'SET_SPEED', payload: mode });
   const setSpotlight = (enabled: boolean) => dispatch({ type: 'SET_SPOTLIGHT', payload: enabled });
   const advanceSpotlight = () => dispatch({ type: 'ADVANCE_SPOTLIGHT' });
-  const setTheme = (themeId: ThemeId) => dispatch({ type: 'SET_THEME', payload: themeId });
+  const setTheme = (themeId: ThemeId | string) => dispatch({ type: 'SET_THEME', payload: themeId });
   const setBackground = (backgroundId: string | null) =>
     dispatch({ type: 'SET_BACKGROUND', payload: backgroundId });
 

@@ -1,0 +1,214 @@
+{
+  "themeId": "noviolence",
+  "version": "2.0.0",
+  "assetVersion": "20260513",
+  "description": "선생님이 학생들이 색칠한 학교폭력예방교육 학습지를 업로드하면, 전시 화면에는 색칠한 캐릭터만 안전하고 따뜻한 학교 배경 위에 둥둥 떠다니는 우리 반 작품 전시 주제입니다. 활동지 하단의 글쓰기 영역은 전시 화면에 절대 표시되지 않습니다.",
+  "backgrounds": {
+    "main": "/assets/themes/noviolence/backgrounds/1.png",
+    "soft": "/assets/themes/noviolence/backgrounds/2.png",
+    "hallway": "/assets/themes/noviolence/backgrounds/1.png",
+    "classroom": "/assets/themes/noviolence/backgrounds/2.png",
+    "counselingRoom": "/assets/themes/noviolence/backgrounds/3.png",
+    "library": "/assets/themes/noviolence/backgrounds/4.png",
+    "playground": "/assets/themes/noviolence/backgrounds/5.png"
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": [
+      "paused",
+      "slow",
+      "normal",
+      "fast"
+    ],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheets": [
+    {
+      "id": "hallway-kindness",
+      "group": 1,
+      "name": "복도에서는 서로 배려해요",
+      "file": "/assets/themes/noviolence/worksheets/1.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/1.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/1.png"
+    },
+    {
+      "id": "ask-for-help",
+      "group": 2,
+      "name": "힘들면 바로 알려요",
+      "file": "/assets/themes/noviolence/worksheets/2.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/2.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/2.png"
+    },
+    {
+      "id": "classroom-respect",
+      "group": 3,
+      "name": "교실에서는 존중해요",
+      "file": "/assets/themes/noviolence/worksheets/3.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/3.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/3.png"
+    },
+    {
+      "id": "kind-words",
+      "group": 4,
+      "name": "말 한마디도 중요해요",
+      "file": "/assets/themes/noviolence/worksheets/4.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/4.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/4.png"
+    },
+    {
+      "id": "honest-feelings",
+      "group": 5,
+      "name": "내 마음을 솔직하게 말해요",
+      "file": "/assets/themes/noviolence/worksheets/5.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/5.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/5.png"
+    },
+    {
+      "id": "courage-to-ask",
+      "group": 6,
+      "name": "도움 요청은 용기예요",
+      "file": "/assets/themes/noviolence/worksheets/6.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/6.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/6.png"
+    },
+    {
+      "id": "not-alone",
+      "group": 7,
+      "name": "혼자 두지 않아요",
+      "file": "/assets/themes/noviolence/worksheets/7.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/7.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/7.png"
+    },
+    {
+      "id": "listen-to-friend",
+      "group": 8,
+      "name": "친구의 이야기를 들어요",
+      "file": "/assets/themes/noviolence/worksheets/8.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/8.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/8.png"
+    },
+    {
+      "id": "play-together",
+      "group": 9,
+      "name": "운동장에서도 함께 놀아요",
+      "file": "/assets/themes/noviolence/worksheets/9.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/9.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/9.png"
+    },
+    {
+      "id": "resolve-with-dialogue",
+      "group": 10,
+      "name": "갈등은 대화로 풀어요",
+      "file": "/assets/themes/noviolence/worksheets/10.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/10.png",
+      "sampleCutout": "/assets/themes/noviolence/samples/10.png"
+    }
+  ],
+  "samples": [
+    {
+      "id": "waving-student",
+      "group": 1,
+      "name": "인사하는 친구",
+      "file": "/assets/themes/noviolence/samples/1.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/1.png"
+    },
+    {
+      "id": "listening-student",
+      "group": 2,
+      "name": "이야기를 들어주는 친구",
+      "file": "/assets/themes/noviolence/samples/2.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/2.png"
+    },
+    {
+      "id": "hand-up-student",
+      "group": 3,
+      "name": "도움을 요청하는 친구",
+      "file": "/assets/themes/noviolence/samples/3.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/3.png"
+    },
+    {
+      "id": "kind-speaking-student",
+      "group": 4,
+      "name": "따뜻하게 말하는 친구",
+      "file": "/assets/themes/noviolence/samples/4.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/4.png"
+    },
+    {
+      "id": "helping-friend",
+      "group": 5,
+      "name": "손을 내미는 친구",
+      "file": "/assets/themes/noviolence/samples/5.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/5.png"
+    },
+    {
+      "id": "talking-friends",
+      "group": 6,
+      "name": "대화하는 친구들",
+      "file": "/assets/themes/noviolence/samples/6.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/6.png"
+    },
+    {
+      "id": "friend-group",
+      "group": 7,
+      "name": "함께 있는 친구들",
+      "file": "/assets/themes/noviolence/samples/7.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/7.png"
+    },
+    {
+      "id": "inclusive-play",
+      "group": 8,
+      "name": "함께 노는 친구들",
+      "file": "/assets/themes/noviolence/samples/8.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/8.png"
+    },
+    {
+      "id": "teacher-helper",
+      "group": 9,
+      "name": "도와주는 선생님",
+      "file": "/assets/themes/noviolence/samples/9.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/9.png"
+    },
+    {
+      "id": "heart-shield",
+      "group": 10,
+      "name": "마음 보호 방패",
+      "file": "/assets/themes/noviolence/samples/10.png",
+      "thumbnail": "/assets/themes/noviolence/worksheets/10.png"
+    }
+  ],
+  "letterSection": {
+    "title": "친구를 지키는 나의 약속",
+    "prompt": "친구를 배려하고 안전한 학교를 만들기 위해 내가 실천할 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}

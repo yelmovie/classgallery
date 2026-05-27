@@ -1,0 +1,25 @@
+{
+  "themeId": "summer",
+  "characterCropArea": {
+    "x": 0.04,
+    "y": 0.02,
+    "width": 0.92,
+    "height": 0.48
+  },
+  "writingBoxArea": {
+    "x": 0.06,
+    "y": 0.66,
+    "width": 0.88,
+    "height": 0.3
+  },
+  "extractionRules": {
+    "preserveCharacterColor": true,
+    "preserveOriginalRgb": true,
+    "makeCharacterOpaque": true,
+    "removeOnlyOuterPaperBackground": true,
+    "doNotRemoveInnerWhiteAreas": true,
+    "doNotReduceOpacity": true,
+    "addWhiteOuterBorder": true,
+    "doNotDisplayFullWorksheetCard": true
+  }
+}

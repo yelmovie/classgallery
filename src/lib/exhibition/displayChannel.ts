@@ -13,7 +13,7 @@ import type { ThemeId } from '../../types/theme';
 export const DISPLAY_CHANNEL_NAME = 'classgallery-exhibition';
 
 export interface SyncStatePayload {
-  currentTheme: ThemeId;
+  currentTheme: ThemeId | string;
   selectedBackgroundId: string | null;
   artworks: Artwork[];
   speedMode: SpeedMode;
@@ -29,7 +29,10 @@ export type DisplayMessage =
   | { type: 'CLEAR_ALL' }
   | { type: 'SCREENSHOT_REQUEST' }
   | { type: 'SCREENSHOT_DONE'; filename: string }
-  | { type: 'SCREENSHOT_ERROR'; message: string };
+  | { type: 'SCREENSHOT_ERROR'; message: string }
+  | { type: 'EMAIL_GALLERY_REQUEST'; email: string }
+  | { type: 'EMAIL_GALLERY_DONE' }
+  | { type: 'EMAIL_GALLERY_ERROR'; message: string };
 
 // 모듈 싱글톤. BroadcastChannel 은 자기 자신에게는 메시지를 보내지 않으므로
 // 같은 탭의 송신자/수신자는 서로 충돌하지 않는다.
@@ -41,7 +44,7 @@ function getChannel(): BroadcastChannel | null {
   try {
     channel = new BroadcastChannel(DISPLAY_CHANNEL_NAME);
   } catch (err) {
-    console.warn('[displayChannel] BroadcastChannel 생성 실패', err);
+    if (import.meta.env.DEV) console.warn('[displayChannel] BroadcastChannel 생성 실패', err);
     channel = null;
   }
   return channel;
@@ -52,7 +55,7 @@ function post(msg: DisplayMessage): void {
     getChannel()?.postMessage(msg);
   } catch (err) {
     // 페이로드가 직렬화 불가능하거나 채널이 닫힌 경우. 조용히 무시.
-    console.warn('[displayChannel] postMessage 실패', err);
+    if (import.meta.env.DEV) console.warn('[displayChannel] postMessage 실패', err);
   }
 }
 
@@ -90,6 +93,18 @@ export function sendScreenshotDone(filename: string): void {
 
 export function sendScreenshotError(message: string): void {
   post({ type: 'SCREENSHOT_ERROR', message });
+}
+
+export function sendEmailGalleryRequest(email: string): void {
+  post({ type: 'EMAIL_GALLERY_REQUEST', email });
+}
+
+export function sendEmailGalleryDone(): void {
+  post({ type: 'EMAIL_GALLERY_DONE' });
+}
+
+export function sendEmailGalleryError(message: string): void {
+  post({ type: 'EMAIL_GALLERY_ERROR', message });
 }
 
 export function subscribeDisplayMessages(

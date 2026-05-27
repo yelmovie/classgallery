@@ -1,26 +1,66 @@
 import { useEffect, useState } from 'react';
-import { THEMES_BY_ID } from '../../constants/themes';
-import type { ThemeId, ThemeWorksheet } from '../../types/theme';
+import JSZip from 'jszip';
+import { getThemeMeta } from '../../constants/themes';
+import type { ThemeWorksheet } from '../../types/theme';
 
 interface WorksheetGalleryModalProps {
-  /** themeId 가 null 이면 모달이 닫혀있는 상태. */
-  themeId: ThemeId | null;
+  themeId: string | null;
   onClose: () => void;
 }
 
-/**
- * 선택된 테마의 활동지 6장을 카드로 보여주고 보기/다운로드 버튼을 제공한다.
- *
- * - 보기: 새 탭에서 PNG 열기
- * - 다운로드: <a download> 트릭
- * - 파일이 없으면 onError 로 placeholder + 안내 메시지
- * - 외부 DB / 외부 저장소 / 로그인 없이 public 정적 파일만 사용
- */
 export default function WorksheetGalleryModal({
   themeId,
   onClose,
 }: WorksheetGalleryModalProps) {
   const open = themeId !== null;
+  const [downloadState, setDownloadState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
+  const [downloadProgress, setDownloadProgress] = useState(0);
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleDownloadAll = async () => {
+    if (!themeId) return;
+    const theme = getThemeMeta(themeId);
+    if (!theme?.worksheets?.length) return;
+    setDownloadState('loading');
+    setDownloadProgress(0);
+
+    try {
+      const zip = new JSZip();
+      const folder = zip.folder(theme.name) ?? zip;
+      const total = theme.worksheets.length;
+
+      await Promise.all(
+        theme.worksheets.map(async (ws, index) => {
+          const url = ws.file.split('?')[0];
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`활동지 파일을 불러오지 못했습니다: ${ws.name}`);
+          const blob = await res.blob();
+          const ext = url.split('.').pop() ?? 'png';
+          const safeName = ws.name.replace(/[\s·/\\?%*:|"<>]/g, '-');
+          folder.file(`${String(ws.group).padStart(2, '0')}-${safeName}.${ext}`, blob);
+          setDownloadProgress(Math.round(((index + 1) / total) * 100));
+        }),
+      );
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `classgallery-${themeId}-worksheets.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setDownloadState('done');
+      window.setTimeout(() => setDownloadState('idle'), 2500);
+    } catch (err) {
+      if (import.meta.env.DEV) console.error('[downloadAll]', err);
+      setDownloadState('error');
+      window.setTimeout(() => setDownloadState('idle'), 3000);
+    }
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -38,7 +78,7 @@ export default function WorksheetGalleryModal({
   }, [open]);
 
   if (!open || !themeId) return null;
-  const theme = THEMES_BY_ID[themeId];
+  const theme = getThemeMeta(themeId);
   if (!theme || !theme.worksheets) return null;
 
   return (
@@ -57,47 +97,76 @@ export default function WorksheetGalleryModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="fade-in"
+        className="fade-in worksheet-print-root"
         style={{
-          background: '#fff',
-          borderRadius: 22,
-          maxWidth: 880, width: '100%',
+          background: 'var(--color-surface-solid)',
+          borderRadius: 'var(--radius-card)',
+          maxWidth: 920, width: '100%',
           maxHeight: 'calc(100vh - 40px)',
           overflowY: 'auto',
           boxShadow: '0 24px 60px rgba(15, 40, 65, 0.3)',
           display: 'flex', flexDirection: 'column',
         }}
       >
-        <div style={{
+        <div className="worksheet-print-header" style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 12,
           padding: '20px 24px 12px',
           borderBottom: '1px solid var(--color-border)',
-          position: 'sticky', top: 0, background: '#fff', zIndex: 1,
+          position: 'sticky', top: 0, background: 'var(--color-surface-solid)', zIndex: 1,
         }}>
           <div>
             <h2
               id="worksheet-gallery-title"
               style={{ fontSize: 18, fontWeight: 800, color: 'var(--color-text)', marginBottom: 4 }}
             >
-              📄 {theme.name} 활동지 보기
+              {theme.name} 활동지 보기
             </h2>
             <p style={{ fontSize: 12, color: 'var(--color-muted)' }}>
-              이 활동지는 A4 세로 출력용입니다.
+              A4 세로 출력용 활동지입니다. 인쇄하기를 누르면 전체 활동지를 바로 출력할 수 있어요.
             </p>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="닫기"
-            style={{
-              width: 32, height: 32, borderRadius: 10,
-              border: 'none', background: 'var(--color-primary-light)',
-              color: 'var(--color-primary)', fontSize: 16, fontWeight: 700,
-              cursor: 'pointer',
-            }}
-          >×</button>
+          <div className="worksheet-print-controls" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={handleDownloadAll}
+              disabled={downloadState === 'loading'}
+            >
+              {downloadState === 'loading' ? `${downloadProgress}%` : '전체 저장'}
+            </button>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              onClick={handlePrint}
+            >
+              전체 인쇄
+            </button>
+            <button
+              onClick={onClose}
+              aria-label="닫기"
+              style={{
+                width: 32, height: 32, borderRadius: 10,
+                border: 'none', background: 'var(--color-primary-light)',
+                color: 'var(--color-primary)', fontSize: 16, fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >×</button>
+          </div>
         </div>
 
-        <div style={{
+        {downloadState === 'done' && (
+          <p style={{ margin: '12px 24px 0', color: 'var(--color-primary)', fontSize: 13, fontWeight: 700 }}>
+            활동지를 ZIP 파일로 저장했어요.
+          </p>
+        )}
+        {downloadState === 'error' && (
+          <p style={{ margin: '12px 24px 0', color: 'var(--color-danger)', fontSize: 13, fontWeight: 700 }}>
+            일부 활동지를 저장하지 못했습니다.
+          </p>
+        )}
+
+        <div className="worksheet-print-grid" style={{
           padding: '20px 24px 28px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
@@ -113,15 +182,13 @@ export default function WorksheetGalleryModal({
 }
 
 interface WorksheetCardProps {
-  themeId: ThemeId;
+  themeId: string;
   worksheet: ThemeWorksheet;
 }
 
 function WorksheetCard({ themeId, worksheet }: WorksheetCardProps) {
   const [imageError, setImageError] = useState(false);
 
-  // 다운로드 파일명: 영문/숫자 + group 번호 + 짧은 이름.
-  // 한글 파일명도 download 속성으로 정상 동작하지만 통일성 위해 영문 형식 사용.
   const safeName = worksheet.name.replace(/[\s·/\\?%*:|"<>]/g, '-');
   const downloadName = `classgallery-${themeId}-${worksheet.group}-${safeName}.png`;
 
@@ -131,6 +198,7 @@ function WorksheetCard({ themeId, worksheet }: WorksheetCardProps) {
 
   return (
     <article
+      className="worksheet-card"
       title={worksheet.displayName}
       aria-label={`${worksheet.group}번 활동지 (${worksheet.displayName})`}
       style={{
@@ -147,15 +215,14 @@ function WorksheetCard({ themeId, worksheet }: WorksheetCardProps) {
         color: '#fff',
         fontSize: 16, fontWeight: 800,
         textAlign: 'center',
-        letterSpacing: '0.02em',
       }}>
         {worksheet.group}
       </div>
 
-      <div style={{
+      <div className="worksheet-print-page" style={{
         position: 'relative',
         aspectRatio: '1 / 1.414',
-        background: '#fff',
+        background: 'var(--color-surface-solid)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 8,
       }}>
@@ -177,7 +244,7 @@ function WorksheetCard({ themeId, worksheet }: WorksheetCardProps) {
             gap: 8, padding: 16, textAlign: 'center',
             color: 'var(--color-muted)',
           }}>
-            <span style={{ fontSize: 32 }}>📄</span>
+            <span style={{ fontSize: 32 }}>□</span>
             <p style={{ fontSize: 12 }}>활동지 파일을 찾을 수 없습니다</p>
           </div>
         )}
@@ -207,7 +274,7 @@ function WorksheetCard({ themeId, worksheet }: WorksheetCardProps) {
             opacity: imageError ? 0.45 : 1,
           }}
         >
-          다운로드
+          저장
         </a>
       </div>
     </article>

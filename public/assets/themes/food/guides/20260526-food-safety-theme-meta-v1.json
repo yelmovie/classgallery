@@ -1,0 +1,125 @@
+{
+  "themeId": "food",
+  "assetBasePath": "/assets/themes/food",
+  "backgrounds": {
+    "bg1": "/assets/themes/food/backgrounds/1.png",
+    "bg2": "/assets/themes/food/backgrounds/2.png",
+    "bg3": "/assets/themes/food/backgrounds/3.png",
+    "bg4": "/assets/themes/food/backgrounds/4.png",
+    "bg5": "/assets/themes/food/backgrounds/5.png"
+  },
+  "worksheets": [
+    {
+      "id": "food-worksheet-1",
+      "group": 1,
+      "file": "/assets/themes/food/worksheets/1.png",
+      "thumbnail": "/assets/themes/food/worksheets/1.png",
+      "sampleCutout": "/assets/themes/food/samples/1.png"
+    },
+    {
+      "id": "food-worksheet-2",
+      "group": 2,
+      "file": "/assets/themes/food/worksheets/2.png",
+      "thumbnail": "/assets/themes/food/worksheets/2.png",
+      "sampleCutout": "/assets/themes/food/samples/2.png"
+    },
+    {
+      "id": "food-worksheet-3",
+      "group": 3,
+      "file": "/assets/themes/food/worksheets/3.png",
+      "thumbnail": "/assets/themes/food/worksheets/3.png",
+      "sampleCutout": "/assets/themes/food/samples/3.png"
+    },
+    {
+      "id": "food-worksheet-4",
+      "group": 4,
+      "file": "/assets/themes/food/worksheets/4.png",
+      "thumbnail": "/assets/themes/food/worksheets/4.png",
+      "sampleCutout": "/assets/themes/food/samples/4.png"
+    },
+    {
+      "id": "food-worksheet-5",
+      "group": 5,
+      "file": "/assets/themes/food/worksheets/5.png",
+      "thumbnail": "/assets/themes/food/worksheets/5.png",
+      "sampleCutout": "/assets/themes/food/samples/5.png"
+    },
+    {
+      "id": "food-worksheet-6",
+      "group": 6,
+      "file": "/assets/themes/food/worksheets/6.png",
+      "thumbnail": "/assets/themes/food/worksheets/6.png",
+      "sampleCutout": "/assets/themes/food/samples/6.png"
+    },
+    {
+      "id": "food-worksheet-7",
+      "group": 7,
+      "file": "/assets/themes/food/worksheets/7.png",
+      "thumbnail": "/assets/themes/food/worksheets/7.png",
+      "sampleCutout": "/assets/themes/food/samples/7.png"
+    },
+    {
+      "id": "food-worksheet-8",
+      "group": 8,
+      "file": "/assets/themes/food/worksheets/8.png",
+      "thumbnail": "/assets/themes/food/worksheets/8.png",
+      "sampleCutout": "/assets/themes/food/samples/8.png"
+    },
+    {
+      "id": "food-worksheet-9",
+      "group": 9,
+      "file": "/assets/themes/food/worksheets/9.png",
+      "thumbnail": "/assets/themes/food/worksheets/9.png",
+      "sampleCutout": "/assets/themes/food/samples/9.png"
+    },
+    {
+      "id": "food-worksheet-10",
+      "group": 10,
+      "file": "/assets/themes/food/worksheets/10.png",
+      "thumbnail": "/assets/themes/food/worksheets/10.png",
+      "sampleCutout": "/assets/themes/food/samples/10.png"
+    }
+  ],
+  "samples": [
+    {
+      "id": "food-sample-1",
+      "file": "/assets/themes/food/samples/1.png"
+    },
+    {
+      "id": "food-sample-2",
+      "file": "/assets/themes/food/samples/2.png"
+    },
+    {
+      "id": "food-sample-3",
+      "file": "/assets/themes/food/samples/3.png"
+    },
+    {
+      "id": "food-sample-4",
+      "file": "/assets/themes/food/samples/4.png"
+    },
+    {
+      "id": "food-sample-5",
+      "file": "/assets/themes/food/samples/5.png"
+    },
+    {
+      "id": "food-sample-6",
+      "file": "/assets/themes/food/samples/6.png"
+    },
+    {
+      "id": "food-sample-7",
+      "file": "/assets/themes/food/samples/7.png"
+    },
+    {
+      "id": "food-sample-8",
+      "file": "/assets/themes/food/samples/8.png"
+    },
+    {
+      "id": "food-sample-9",
+      "file": "/assets/themes/food/samples/9.png"
+    },
+    {
+      "id": "food-sample-10",
+      "file": "/assets/themes/food/samples/10.png"
+    }
+  ]
+}

@@ -16,21 +16,22 @@ interface ExhibitionStageProps {
   items: ExhibitionItem[];
   speedMode: SpeedMode;
   compact?: boolean;
-  spotlightIndex?: number;
   emptyTitle?: string;
   emptyHint?: string;
   /** 테마 배경 URL. 미지정 시 독도 기본 배경 사용. */
   backgroundUrl?: string;
+  /** 캐릭터 클릭 시 호출. 샘플 모드에서는 전달하지 않으면 비활성. */
+  onSpriteClick?: (id: string) => void;
 }
 
 export default function ExhibitionStage({
   items,
   speedMode,
   compact = false,
-  spotlightIndex = -1,
   emptyTitle = '아직 업로드된 작품이 없어요',
   emptyHint = '선생님이 학습지를 올리면 캐릭터가 여기에 떠다녀요',
   backgroundUrl,
+  onSpriteClick,
 }: ExhibitionStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const spriteEls = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -39,6 +40,16 @@ export default function ExhibitionStage({
   const lastTimeRef = useRef<number>(0);
   const speedRef = useRef<number>(SPEED_VALUES[speedMode]);
   const [bgError, setBgError] = useState(false);
+
+  const applySpriteStyles = useCallback(() => {
+    statesRef.current.forEach((s) => {
+      const el = spriteEls.current.get(s.id);
+      if (!el) return;
+      el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.rotation}deg)`;
+      el.style.width = `${s.size}px`;
+      el.style.height = `${s.size}px`;
+    });
+  }, []);
 
   // 속도는 ref로 흘려보내서 매 프레임 리렌더링 방지
   useEffect(() => {
@@ -61,7 +72,8 @@ export default function ExhibitionStage({
       createdAt: 0,
     }));
     statesRef.current = initSprites(artworkLike, w, h);
-  }, [items]);
+    applySpriteStyles();
+  }, [items, applySpriteStyles]);
 
   useEffect(() => {
     resetSprites();
@@ -91,12 +103,13 @@ export default function ExhibitionStage({
       } else {
         resetSprites();
       }
+      applySpriteStyles();
       prevW = w;
       prevH = h;
     });
     ro.observe(stage);
     return () => ro.disconnect();
-  }, [resetSprites]);
+  }, [applySpriteStyles, resetSprites]);
 
   const animate = useCallback((now: number) => {
     const delta = lastTimeRef.current ? Math.min(now - lastTimeRef.current, 64) : 16;
@@ -107,23 +120,23 @@ export default function ExhibitionStage({
       const w = stage.clientWidth;
       const h = stage.clientHeight;
       statesRef.current = updateSprites(statesRef.current, speedRef.current, w, h, delta);
-      statesRef.current.forEach((s) => {
-        const el = spriteEls.current.get(s.id);
-        if (el) {
-          el.style.transform = `translate(${s.x}px, ${s.y}px) rotate(${s.rotation}deg)`;
-          el.style.width = `${s.size}px`;
-          el.style.height = `${s.size}px`;
-        }
-      });
+      applySpriteStyles();
     }
 
     rafRef.current = requestAnimationFrame(animate);
-  }, []);
+  }, [applySpriteStyles]);
 
   useEffect(() => {
+    if (speedMode === 'paused' || items.length === 0) {
+      lastTimeRef.current = 0;
+      cancelAnimationFrame(rafRef.current);
+      applySpriteStyles();
+      return undefined;
+    }
+    lastTimeRef.current = 0;
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [animate]);
+  }, [animate, applySpriteStyles, items.length, speedMode]);
 
   const bgUrl = backgroundUrl ?? DOKDO_THEME.backgrounds.main;
   // 배경 URL 바뀌면 이전 에러 상태 초기화
@@ -165,16 +178,11 @@ export default function ExhibitionStage({
             if (el) spriteEls.current.set(item.id, el);
             else spriteEls.current.delete(item.id);
           }}
+          onClick={onSpriteClick ? () => onSpriteClick(item.id) : undefined}
           style={{
             position: 'absolute', left: 0, top: 0,
             zIndex: 2, willChange: 'transform',
-            transition: 'filter 0.4s ease, opacity 0.4s ease',
-            filter:
-              spotlightIndex >= 0 && i !== spotlightIndex
-                ? 'brightness(0.55) saturate(0.7)'
-                : undefined,
-            opacity:
-              spotlightIndex >= 0 && i !== spotlightIndex ? 0.55 : 1,
+            cursor: onSpriteClick ? 'pointer' : 'default',
           }}
         >
           <img
@@ -183,6 +191,13 @@ export default function ExhibitionStage({
             className="character-img"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             draggable={false}
+            style={{
+              filter: 'saturate(1.30) contrast(1.06) brightness(1.03)',
+              imageRendering: 'auto',
+              transition: onSpriteClick ? 'transform 0.15s ease' : undefined,
+            }}
+            onMouseEnter={onSpriteClick ? (e) => { (e.currentTarget as HTMLImageElement).style.transform = 'scale(1.08)'; } : undefined}
+            onMouseLeave={onSpriteClick ? (e) => { (e.currentTarget as HTMLImageElement).style.transform = ''; } : undefined}
           />
         </div>
       ))}

@@ -1,61 +1,23 @@
 {
-      "name": "에너지 절약 여자아이",
-      "file": "/assets/themes/environment/worksheets/4.png",
-      "thumbnail": "/assets/themes/environment/thumbnails/4.png",
-      "sampleCutout": "/assets/themes/environment/samples/4.png"
-    },
-    {
-      "id": "earth-promise",
-      "group": 5,
-      "name": "지구 친구",
-      "file": "/assets/themes/environment/worksheets/5.png",
-      "thumbnail": "/assets/themes/environment/thumbnails/5.png",
-      "sampleCutout": "/assets/themes/environment/samples/5.png"
-    },
-    {
-      "id": "boy-plant-promise",
-      "group": 6,
-      "name": "식물을 든 남자아이",
-      "file": "/assets/themes/environment/worksheets/6.png",
-      "thumbnail": "/assets/themes/environment/thumbnails/6.png",
-      "sampleCutout": "/assets/themes/environment/samples/6.png"
-    },
-    {
-      "id": "boy-energy-promise",
-      "group": 7,
-      "name": "에너지 절약 남자아이",
-      "file": "/assets/themes/environment/worksheets/7.png",
-      "thumbnail": "/assets/themes/environment/thumbnails/7.png",
-      "sampleCutout": "/assets/themes/environment/samples/7.png"
-    }
-  ],
-  "letterSection": {
-    "title": "지구를 위한 나의 약속",
-    "prompt": "환경을 지키기 위해 내가 실천할 일을 생각하고, 이유와 다짐이 드러나게 써 봅시다.",
-    "writingLines": true,
-    "studentNameField": false,
-    "showInExhibition": false
+  "themeId": "saveearth",
+  "slug": "saveearth",
+  "assetBasePath": "/assets/themes/saveearth",
+  "backgrounds": {
+    "meadow": "/assets/themes/saveearth/backgrounds/1.png",
+    "forest": "/assets/themes/saveearth/backgrounds/2.png",
+    "ocean": "/assets/themes/saveearth/backgrounds/3.png",
+    "sky": "/assets/themes/saveearth/backgrounds/4.png",
+    "park": "/assets/themes/saveearth/backgrounds/5.png",
+    "sunlight": "/assets/themes/saveearth/backgrounds/6.png",
+    "earth": "/assets/themes/saveearth/backgrounds/7.png"
   },
-  "uiLabels": {
-    "addArtwork": "작품 추가하기",
-    "movementSpeed": "움직임 빠르기",
-    "paused": "멈춤",
-    "slow": "느리게",
-    "normal": "보통",
-    "fast": "빠르게",
-    "spotlight": "확대 감상",
-    "startExhibition": "전시 시작",
-    "clearAll": "전체 삭제",
-    "viewWorksheets": "활동지 보기",
-    "downloadWorksheet": "활동지 다운로드",
-    "printNote": "이 활동지는 A4 세로 출력용입니다."
-  },
-  "privacyRules": {
-    "collectStudentName": false,
-    "collectStudentFace": false,
-    "studentDirectUpload": false,
-    "useLogin": false,
-    "useExternalDatabase": false,
-    "teacherOnlyUpload": true
-  }
+  "worksheets": [
+    { "id": "promise-1", "group": 1, "file": "/assets/themes/saveearth/worksheets/1.png", "thumbnail": "/assets/themes/saveearth/worksheets/1.png", "sampleCutout": "/assets/themes/saveearth/samples/1.png" },
+    { "id": "promise-2", "group": 2, "file": "/assets/themes/saveearth/worksheets/2.png", "thumbnail": "/assets/themes/saveearth/worksheets/2.png", "sampleCutout": "/assets/themes/saveearth/samples/2.png" },
+    { "id": "promise-3", "group": 3, "file": "/assets/themes/saveearth/worksheets/3.png", "thumbnail": "/assets/themes/saveearth/worksheets/3.png", "sampleCutout": "/assets/themes/saveearth/samples/3.png" },
+    { "id": "promise-4", "group": 4, "file": "/assets/themes/saveearth/worksheets/4.png", "thumbnail": "/assets/themes/saveearth/worksheets/4.png", "sampleCutout": "/assets/themes/saveearth/samples/4.png" },
+    { "id": "promise-5", "group": 5, "file": "/assets/themes/saveearth/worksheets/5.png", "thumbnail": "/assets/themes/saveearth/worksheets/5.png", "sampleCutout": "/assets/themes/saveearth/samples/5.png" },
+    { "id": "promise-6", "group": 6, "file": "/assets/themes/saveearth/worksheets/6.png", "thumbnail": "/assets/themes/saveearth/worksheets/6.png", "sampleCutout": "/assets/themes/saveearth/samples/6.png" },
+    { "id": "promise-7", "group": 7, "file": "/assets/themes/saveearth/worksheets/7.png", "thumbnail": "/assets/themes/saveearth/worksheets/7.png", "sampleCutout": "/assets/themes/saveearth/samples/7.png" }
+  ]
 }

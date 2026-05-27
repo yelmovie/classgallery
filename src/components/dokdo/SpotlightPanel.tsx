@@ -9,6 +9,8 @@ interface SpotlightPanelProps {
   enabled: boolean;
   /** 패널 클릭 또는 "크게 보기" 버튼 클릭 시 호출. 부모가 모달을 연다. */
   onOpenViewer?: (artwork: Artwork) => void;
+  /** 패널 닫기 버튼 클릭 시 호출. */
+  onClose?: () => void;
 }
 
 /**
@@ -23,6 +25,7 @@ export default function SpotlightPanel({
   onAdvance,
   enabled,
   onOpenViewer,
+  onClose,
 }: SpotlightPanelProps) {
   const advance = useCallback(() => { onAdvance(); }, [onAdvance]);
 
@@ -55,28 +58,51 @@ export default function SpotlightPanel({
         border: '1px solid rgba(255,255,255,0.5)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: '#2f80d8', letterSpacing: '0.02em' }}>
           확대 감상
         </div>
-        {onOpenViewer && (
-          <button
-            type="button"
-            onClick={handleOpen}
-            data-screenshot-ignore="true"
-            aria-label="학습지 크게 보기"
-            style={{
-              fontSize: 11, fontWeight: 700,
-              padding: '4px 9px', borderRadius: 99,
-              border: 'none',
-              background: 'var(--color-primary)',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
-          >
-            크게 보기
-          </button>
-        )}
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {onOpenViewer && (
+            <button
+              type="button"
+              onClick={handleOpen}
+              data-screenshot-ignore="true"
+              aria-label="학습지 크게 보기"
+              style={{
+                fontSize: 11, fontWeight: 700,
+                padding: '4px 9px', borderRadius: 99,
+                border: 'none',
+                background: 'var(--color-primary)',
+                color: '#fff',
+                cursor: 'pointer',
+              }}
+            >
+              크게 보기
+            </button>
+          )}
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              data-screenshot-ignore="true"
+              aria-label="확대 감상 닫기"
+              title="닫기"
+              style={{
+                width: 22, height: 22, borderRadius: 99,
+                border: '1px solid rgba(0,0,0,0.08)',
+                background: 'rgba(0,0,0,0.04)',
+                color: '#607587',
+                fontSize: 13, lineHeight: 1,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer',
+                padding: 0,
+              }}
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <button

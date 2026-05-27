@@ -1,20 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useGallery } from '../../context/GalleryContext';
-import { extractWorksheetData } from '../../lib/image/extractCharacterCutout';
+import { useCustomThemes } from '../../context/CustomThemeContext';
+import {
+  extractCharacterCutoutFromUrl,
+  extractWorksheetCutoutFromUrl,
+  extractWorksheetData,
+} from '../../lib/image/extractCharacterCutout';
 import type { Artwork, SpeedMode } from '../../types/artwork';
-import type { ThemeId } from '../../types/theme';
 import { SPEED_LABELS, MAX_ARTWORKS } from '../../constants/dokdoTheme';
-import { THEMES_BY_ID, getThemeMeta } from '../../constants/themes';
+import { getThemeMeta } from '../../constants/themes';
+import { WORKSHEET_SAMPLE_URLS } from '../../constants/worksheetSamples';
 import {
   sendSyncState,
   sendSpeedUpdate,
   sendSpotlightUpdate,
   sendBackgroundUpdate,
   sendScreenshotRequest,
+  sendEmailGalleryRequest,
   subscribeDisplayMessages,
 } from '../../lib/exhibition/displayChannel';
 import BackgroundPicker from '../../components/dokdo/BackgroundPicker';
+import CameraCaptureModal from '../../components/camera/CameraCaptureModal';
 import { getDefaultBackground } from '../../lib/themes/getThemeBackgrounds';
 import {
   openDisplayWindow,
@@ -32,20 +39,41 @@ export default function ControlPage() {
   const { artworks, speedMode, spotlightEnabled, currentTheme, selectedBackgroundId } = state;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [processingCount, setProcessingCount] = useState(0);
+  const [uploadProgress, setUploadProgress] = useState<{
+    total: number;
+    done: number;
+    failed: string[];
+  } | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [windowMsg, setWindowMsg] = useState<{ kind: 'ok' | 'blocked'; text: string } | null>(null);
+  const [cameraOpen, setCameraOpen] = useState(false);
+  const [emailPanelOpen, setEmailPanelOpen] = useState(false);
+  const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
+  const [invalidThemeId, setInvalidThemeId] = useState('');
+  const [emailValue, setEmailValue] = useState(() => localStorage.getItem('classgallery-teacher-email') ?? '');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { customThemes, isLoading: customThemesLoading } = useCustomThemes();
 
   // ?theme= 쿼리로 테마 전환
   useEffect(() => {
     const requested = searchParams.get('theme');
-    if (requested && requested in THEMES_BY_ID && requested !== currentTheme) {
-      setTheme(requested as ThemeId);
+    if (!requested) {
+      setInvalidThemeId('');
+      return;
+    }
+    const requestedMeta = getThemeMeta(requested);
+    if (requestedMeta.id === requested) {
+      setInvalidThemeId('');
+    } else if (!customThemesLoading) {
+      setInvalidThemeId(requested);
+    }
+    if (requestedMeta.id === requested && requested !== currentTheme) {
+      setTheme(requested);
     }
     // currentTheme 의존성 제외: 사용자가 직접 setTheme 한 경우 URL 을 다시 따라가지 않게.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, [searchParams, customThemes, customThemesLoading]);
 
   const themeMeta = getThemeMeta(currentTheme);
 
@@ -86,12 +114,32 @@ export default function ControlPage() {
     if (!isDisplayWindowOpen()) {
       setShotMsg({
         kind: 'err',
-        text: '전시 화면을 먼저 열어주세요. "전시 화면 새 창 열기" 버튼을 누르시면 돼요.',
+        text: '전시 화면을 먼저 열어주세요. 팝업이 막히면 현재 탭의 전시 화면에서도 저장할 수 있어요.',
       });
       return;
     }
     sendScreenshotRequest();
     setShotMsg({ kind: 'ok', text: '전시 화면에서 저장하고 있어요... 잠시만요.' });
+  };
+
+  const handleSendEmail = () => {
+    if (!isDisplayWindowOpen()) {
+      setShotMsg({
+        kind: 'err',
+        text: '전시 화면을 먼저 열어주세요. 팝업이 막히면 현재 탭의 전시 화면에서 메일 버튼을 사용할 수 있어요.',
+      });
+      setEmailPanelOpen(false);
+      return;
+    }
+    const trimmed = emailValue.trim();
+    if (!trimmed) {
+      setShotMsg({ kind: 'err', text: '이메일 주소를 입력해주세요.' });
+      return;
+    }
+    localStorage.setItem('classgallery-teacher-email', trimmed);
+    sendEmailGalleryRequest(trimmed);
+    setEmailPanelOpen(false);
+    setShotMsg({ kind: 'ok', text: '전시 화면에서 갤러리 이미지를 캡처하고 있어요...' });
   };
 
   // artworks/테마/배경 이 바뀔 때마다 전시 창으로 새 상태 push (SYNC_STATE)
@@ -116,7 +164,7 @@ export default function ControlPage() {
     if (result === 'blocked') {
       setWindowMsg({
         kind: 'blocked',
-        text: '새 창이 열리지 않았어요. 주소창 옆 팝업 차단 알림을 확인하고 팝업을 허용해주세요.',
+        text: '새 창이 열리지 않았어요. 주소창 옆 팝업 차단 알림에서 허용하거나, 상단의 전시 시작 버튼으로 현재 탭에서 진행하세요.',
       });
     } else if (result === 'focused') {
       setWindowMsg({ kind: 'ok', text: '이미 열려 있는 전시 창을 앞으로 가져왔어요.' });
@@ -138,13 +186,18 @@ export default function ControlPage() {
     }
 
     const toProcess = files.slice(0, remaining);
+    setUploadProgress({ total: toProcess.length, done: 0, failed: [] });
     setProcessingCount((c) => c + toProcess.length);
 
     const newArtworks: Artwork[] = [];
     for (const file of toProcess) {
       try {
         const previewUrl = URL.createObjectURL(file);
-        const { cutoutUrl, originalImageUrl } = await extractWorksheetData(file, themeMeta.cropArea);
+        const { cutoutUrl, originalImageUrl } = await extractWorksheetData(file, {
+          cropArea: themeMeta.cropArea,
+          applyInitialCrop: true,
+          detectPaperRegion: true,
+        });
         newArtworks.push({
           id: crypto.randomUUID(),
           originalFileName: file.name,
@@ -154,10 +207,18 @@ export default function ControlPage() {
           createdAt: Date.now(),
         });
       } catch (err) {
-        console.error('이미지 처리 오류:', err);
+        setUploadProgress((progress) =>
+          progress
+            ? { ...progress, failed: [...progress.failed, file.name] }
+            : progress,
+        );
+        if (import.meta.env.DEV) console.error('이미지 처리 오류:', err);
         setErrorMsg('일부 이미지를 처리할 수 없었어요. 다시 시도해보세요.');
       } finally {
         setProcessingCount((c) => c - 1);
+        setUploadProgress((progress) =>
+          progress ? { ...progress, done: Math.min(progress.total, progress.done + 1) } : progress,
+        );
       }
     }
 
@@ -168,14 +229,79 @@ export default function ControlPage() {
     }
   };
 
+  const handleLoadDemoArtworks = async () => {
+    const remaining = MAX_ARTWORKS - artworks.length;
+    if (remaining <= 0) {
+      setErrorMsg(`최대 ${MAX_ARTWORKS}개까지 전시할 수 있어요.`);
+      return;
+    }
+
+    const themeSampleUrls = themeMeta.sampleUrls ?? [];
+    const hasThemeSamples = themeSampleUrls.length > 0;
+    const demoSourceUrls = hasThemeSamples ? themeSampleUrls : WORKSHEET_SAMPLE_URLS;
+    const demoUrls = demoSourceUrls.slice(0, Math.min(remaining, 8));
+
+    if (demoUrls.length === 0) {
+      setErrorMsg('이 주제에는 시연용 작품 이미지가 아직 준비되지 않았어요.');
+      return;
+    }
+
+    setErrorMsg('');
+    setUploadProgress({ total: demoUrls.length, done: 0, failed: [] });
+    setProcessingCount((c) => c + demoUrls.length);
+
+    const newArtworks: Artwork[] = [];
+    for (const [index, url] of demoUrls.entries()) {
+      try {
+        const cutoutUrl = hasThemeSamples
+          ? await extractCharacterCutoutFromUrl(url)
+          : await extractWorksheetCutoutFromUrl(url);
+
+        newArtworks.push({
+          id: crypto.randomUUID(),
+          originalFileName: `demo-artwork-${index + 1}.png`,
+          originalPreviewUrl: cutoutUrl,
+          originalImageUrl: cutoutUrl,
+          cutoutUrl,
+          createdAt: Date.now() + index,
+        });
+      } catch (err) {
+        if (import.meta.env.DEV) console.error('시연용 이미지 처리 오류:', err);
+        setUploadProgress((progress) =>
+          progress
+            ? { ...progress, failed: [...progress.failed, `demo-artwork-${index + 1}.png`] }
+            : progress,
+        );
+      } finally {
+        setProcessingCount((c) => c - 1);
+        setUploadProgress((progress) =>
+          progress ? { ...progress, done: Math.min(progress.total, progress.done + 1) } : progress,
+        );
+      }
+    }
+
+    if (newArtworks.length > 0) {
+      addArtworks(newArtworks);
+    } else {
+      setErrorMsg('시연용 작품 이미지를 처리할 수 없었어요. 다시 시도해보세요.');
+    }
+  };
+
   const handleClearAll = () => {
     if (artworks.length === 0) return;
-    if (!confirm(`업로드한 학습지 ${artworks.length}개를 모두 삭제할까요?`)) return;
+    setClearConfirmOpen(true);
+  };
+
+  const confirmClearAll = () => {
     clearAll();
     setErrorMsg('');
+    setClearConfirmOpen(false);
   };
 
   const isProcessing = processingCount > 0;
+  const uploadPercent = uploadProgress
+    ? Math.round((uploadProgress.done / Math.max(uploadProgress.total, 1)) * 100)
+    : 0;
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--color-bg)', display: 'flex', flexDirection: 'column' }}>
@@ -209,7 +335,7 @@ export default function ControlPage() {
         </div>
       </nav>
 
-      <div style={{
+      <div className="control-shell" style={{
         flex: 1,
         display: 'grid',
         gridTemplateColumns: '260px 1fr 300px',
@@ -247,6 +373,73 @@ export default function ControlPage() {
                 <><span className="spinner" />처리 중 ({processingCount}개)</>
               ) : '+ 작품 추가하기'}
             </button>
+            <button
+              className="btn btn-ghost"
+              style={{ width: '100%', marginBottom: 8 }}
+              onClick={() => setCameraOpen(true)}
+              disabled={artworks.length >= MAX_ARTWORKS}
+              title="카메라에 그림을 보여주면 자동으로 사진을 찍어요"
+            >
+              📷 카메라로 자동 찍기
+            </button>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              style={{ width: '100%', marginBottom: 8 }}
+              onClick={handleLoadDemoArtworks}
+              disabled={isProcessing || artworks.length >= MAX_ARTWORKS}
+              title="개인정보 없는 체험을 위해 샘플 작품을 전시에 채웁니다."
+            >
+              시연용 작품 채우기
+            </button>
+            {uploadProgress && (
+              <div
+                role="status"
+                aria-live="polite"
+                style={{
+                  margin: '4px 0 8px',
+                  padding: '10px 12px',
+                  borderRadius: 10,
+                  background: 'var(--color-primary-light)',
+                  border: '1px solid var(--color-border)',
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  gap: 8,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: 'var(--color-primary-dark)',
+                  marginBottom: 6,
+                }}>
+                  <span>
+                    {isProcessing
+                      ? `처리 중 ${uploadProgress.done}/${uploadProgress.total}`
+                      : `처리 완료 ${uploadProgress.done}/${uploadProgress.total}`}
+                  </span>
+                  <span>{uploadPercent}%</span>
+                </div>
+                <div style={{
+                  height: 7,
+                  borderRadius: 99,
+                  overflow: 'hidden',
+                  background: 'rgba(255,255,255,0.82)',
+                }}>
+                  <div style={{
+                    width: `${uploadPercent}%`,
+                    height: '100%',
+                    background: 'var(--color-primary)',
+                    transition: 'width 0.2s ease',
+                  }} />
+                </div>
+                {uploadProgress.failed.length > 0 && (
+                  <p style={{ marginTop: 6, fontSize: 11, color: 'var(--color-danger)', lineHeight: 1.4 }}>
+                    실패: {uploadProgress.failed.join(', ')}
+                  </p>
+                )}
+              </div>
+            )}
             <p style={{ fontSize: 12, color: 'var(--color-muted)', textAlign: 'center' }}>
               학습지 사진 여러 장 가능 · 최대 {MAX_ARTWORKS}개
             </p>
@@ -392,6 +585,52 @@ export default function ControlPage() {
             >
               📸 우리반 갤러리 저장
             </button>
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => setEmailPanelOpen((v) => !v)}
+              title="갤러리 이미지를 캡처해서 메일로 보내요"
+              style={{ color: emailPanelOpen ? 'var(--color-primary)' : undefined }}
+            >
+              📧 메일로 보내기
+            </button>
+            {emailPanelOpen && (
+              <div style={{
+                padding: '12px', borderRadius: 10,
+                background: 'var(--color-primary-light)',
+                border: '1px solid var(--color-border)',
+                display: 'flex', flexDirection: 'column', gap: 8,
+              }}>
+                <label style={{ fontSize: 12, fontWeight: 700, color: 'var(--color-text)' }}>
+                  받는 이메일
+                </label>
+                <input
+                  type="email"
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleSendEmail(); }}
+                  placeholder="teacher@gmail.com"
+                  style={{
+                    padding: '8px 10px', borderRadius: 8, fontSize: 13,
+                    border: '1px solid var(--color-border)',
+                    background: '#fff', color: 'var(--color-text)', width: '100%',
+                    boxSizing: 'border-box',
+                  }}
+                />
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={handleSendEmail}
+                  disabled={!emailValue.trim()}
+                  style={{ width: '100%' }}
+                >
+                  캡처 & 메일 열기
+                </button>
+                <p style={{ fontSize: 11, color: 'var(--color-muted)', lineHeight: 1.5, margin: 0 }}>
+                  전시 화면이 열려 있어야 해요. 메일은 자동 발송이 아니라 이미지 저장 후 메일창을 여는 방식입니다.
+                </p>
+              </div>
+            )}
             {shotMsg && (
               <p style={{
                 fontSize: 11.5,
@@ -562,6 +801,67 @@ export default function ControlPage() {
           )}
         </aside>
       </div>
+
+      {invalidThemeId && (
+        <div className="dialog-backdrop" role="presentation" onClick={() => setInvalidThemeId('')}>
+          <div
+            className="dialog-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="invalid-theme-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="invalid-theme-title">주제를 찾을 수 없습니다</h2>
+            <p>
+              요청한 주제({invalidThemeId})가 현재 등록된 주제팩과 일치하지 않아요.
+              주제 선택 화면에서 다시 골라 주세요.
+            </p>
+            <div className="dialog-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => setInvalidThemeId('')}>
+                닫기
+              </button>
+              <Link to="/packs" className="btn btn-primary">
+                주제 선택으로 이동
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <CameraCaptureModal
+        open={cameraOpen}
+        onClose={() => setCameraOpen(false)}
+        remainingSlots={Math.max(0, MAX_ARTWORKS - artworks.length)}
+        cropArea={themeMeta.cropArea}
+        onArtworksCaptured={(newArts) => {
+          // 남은 자리 안에서만 추가 (모달이 자체 체크하지만 안전망)
+          const remaining = MAX_ARTWORKS - artworks.length;
+          if (remaining <= 0) return;
+          addArtworks(newArts.slice(0, remaining));
+        }}
+      />
+      {clearConfirmOpen && (
+        <div className="dialog-backdrop" role="presentation" onClick={() => setClearConfirmOpen(false)}>
+          <div
+            className="dialog-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="clear-gallery-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="clear-gallery-title">전체 삭제 확인</h2>
+            <p>업로드한 학습지 {artworks.length}개를 모두 삭제할까요?</p>
+            <div className="dialog-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => setClearConfirmOpen(false)}>
+                취소
+              </button>
+              <button type="button" className="btn btn-danger" onClick={confirmClearAll}>
+                삭제
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

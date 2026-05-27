@@ -1,0 +1,140 @@
+{
+  "themeId": "civic",
+  "version": "2.0.1",
+  "assetVersion": "20260526",
+  "description": "선생님이 학생들이 색칠한 민주시민교육 학습지를 업로드하면, 전시 화면에는 색칠한 상단 캐릭터/그림만 민주시민교육 배경 위에 둥둥 떠다니는 창체 전시 주제팩입니다. 활동지 하단의 제목, 안내문, 글쓰기 영역은 전시 화면에 표시되지 않습니다.",
+  "backgrounds": {
+    "main": "/assets/themes/civic/backgrounds/1.png",
+    "soft": "/assets/themes/civic/backgrounds/2.png",
+    "classroom": "/assets/themes/civic/backgrounds/3.png",
+    "community": "/assets/themes/civic/backgrounds/4.png",
+    "rules": "/assets/themes/civic/backgrounds/5.png"
+  },
+  "defaultSettings": {
+    "maxArtworks": 30,
+    "recommendedArtworks": 24,
+    "defaultSpeed": "slow",
+    "speedOptions": [
+      "paused",
+      "slow",
+      "normal",
+      "fast"
+    ],
+    "spotlightEnabled": true,
+    "spotlightIntervalSeconds": 5,
+    "teacherUploadOnly": true,
+    "studentDirectUpload": false,
+    "externalDatabase": false
+  },
+  "worksheets": [
+    {
+      "id": "opinion-expression",
+      "group": 1,
+      "name": "내 의견을 자신 있게 말해요",
+      "file": "/assets/themes/civic/worksheets/1.png",
+      "thumbnail": "/assets/themes/civic/worksheets/1.png",
+      "sampleCutout": "/assets/themes/civic/samples/1.png"
+    },
+    {
+      "id": "active-listening",
+      "group": 2,
+      "name": "친구의 의견을 잘 들어요",
+      "file": "/assets/themes/civic/worksheets/2.png",
+      "thumbnail": "/assets/themes/civic/worksheets/2.png",
+      "sampleCutout": "/assets/themes/civic/samples/2.png"
+    },
+    {
+      "id": "discussion-solving",
+      "group": 3,
+      "name": "함께 토의하며 해결해요",
+      "file": "/assets/themes/civic/worksheets/3.png",
+      "thumbnail": "/assets/themes/civic/worksheets/3.png",
+      "sampleCutout": "/assets/themes/civic/samples/3.png"
+    },
+    {
+      "id": "fair-voting",
+      "group": 4,
+      "name": "공정하게 투표해요",
+      "file": "/assets/themes/civic/worksheets/4.png",
+      "thumbnail": "/assets/themes/civic/worksheets/4.png",
+      "sampleCutout": "/assets/themes/civic/samples/4.png"
+    },
+    {
+      "id": "rules-and-promises",
+      "group": 5,
+      "name": "약속과 규칙을 지켜요",
+      "file": "/assets/themes/civic/worksheets/5.png",
+      "thumbnail": "/assets/themes/civic/worksheets/5.png",
+      "sampleCutout": "/assets/themes/civic/samples/5.png"
+    },
+    {
+      "id": "care-and-help",
+      "group": 6,
+      "name": "서로 배려하고 도와요",
+      "file": "/assets/themes/civic/worksheets/6.png",
+      "thumbnail": "/assets/themes/civic/worksheets/6.png",
+      "sampleCutout": "/assets/themes/civic/samples/6.png"
+    },
+    {
+      "id": "responsible-action",
+      "group": 7,
+      "name": "책임 있게 행동해요",
+      "file": "/assets/themes/civic/worksheets/7.png",
+      "thumbnail": "/assets/themes/civic/worksheets/7.png",
+      "sampleCutout": "/assets/themes/civic/samples/7.png"
+    },
+    {
+      "id": "community-care",
+      "group": 8,
+      "name": "우리 공동체를 아껴요",
+      "file": "/assets/themes/civic/worksheets/8.png",
+      "thumbnail": "/assets/themes/civic/worksheets/8.png",
+      "sampleCutout": "/assets/themes/civic/samples/8.png"
+    },
+    {
+      "id": "respect-differences",
+      "group": 9,
+      "name": "서로 다르지만 모두 소중해요",
+      "file": "/assets/themes/civic/worksheets/9.png",
+      "thumbnail": "/assets/themes/civic/worksheets/9.png",
+      "sampleCutout": "/assets/themes/civic/samples/9.png"
+    },
+    {
+      "id": "citizen-promise",
+      "group": 10,
+      "name": "나는 민주시민으로 약속해요",
+      "file": "/assets/themes/civic/worksheets/10.png",
+      "thumbnail": "/assets/themes/civic/worksheets/10.png",
+      "sampleCutout": "/assets/themes/civic/samples/10.png"
+    }
+  ],
+  "letterSection": {
+    "title": "민주시민 다짐 쓰기",
+    "prompt": "오늘 배운 민주시민의 태도와 내가 실천할 약속을 생각하여 써 봅시다.",
+    "writingLines": true,
+    "studentNameField": false,
+    "showInExhibition": false
+  },
+  "uiLabels": {
+    "addArtwork": "작품 추가하기",
+    "movementSpeed": "움직임 빠르기",
+    "paused": "멈춤",
+    "slow": "느리게",
+    "normal": "보통",
+    "fast": "빠르게",
+    "spotlight": "확대 감상",
+    "startExhibition": "전시 시작",
+    "clearAll": "전체 삭제",
+    "viewWorksheets": "활동지 보기",
+    "downloadWorksheet": "활동지 다운로드",
+    "printNote": "이 활동지는 A4 세로 출력용입니다."
+  },
+  "privacyRules": {
+    "collectStudentName": false,
+    "collectStudentFace": false,
+    "studentDirectUpload": false,
+    "useLogin": false,
+    "useExternalDatabase": false,
+    "teacherOnlyUpload": true
+  }
+}
